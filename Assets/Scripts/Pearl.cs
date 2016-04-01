@@ -10,7 +10,6 @@ namespace Assets.Scripts
         public float MaxDepth = -10;
 
         private Rigidbody _rigidbody;
-
         public Rigidbody Rigidbody
         {
             get
