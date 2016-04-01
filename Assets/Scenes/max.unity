@@ -85,18 +85,66 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &1613984585
+--- !u!1 &1280098031
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1613984590}
-  - 20: {fileID: 1613984589}
-  - 92: {fileID: 1613984588}
-  - 124: {fileID: 1613984587}
-  - 81: {fileID: 1613984586}
+  - 4: {fileID: 1280098036}
+  - 114: {fileID: 1280098032}
+  m_Layer: 0
+  m_Name: Vulcan
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1280098032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1280098031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 785b63d82a18bf745a962a507db78b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnRate: 2
+  SpawnOffset: {x: 0, y: 0, z: 0}
+  SpawnRange: 2
+  MaxSpawnSpeed: 5
+  MaxJumpSpeed: 10
+  PearlTypes:
+  - {fileID: 11445668, guid: 98401614cf2986240966fbe391400f68, type: 2}
+  - {fileID: 11488418, guid: 003387671eb9a254ca662d220a69d218, type: 2}
+  - {fileID: 11463494, guid: 5a37d98ad4fcdd84896a3d8b201a4298, type: 2}
+--- !u!4 &1280098036
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1280098031}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+--- !u!1 &1595881280
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1595881285}
+  - 20: {fileID: 1595881284}
+  - 92: {fileID: 1595881283}
+  - 124: {fileID: 1595881282}
+  - 81: {fileID: 1595881281}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -104,33 +152,33 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1613984586
+--- !u!81 &1595881281
 AudioListener:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1613984585}
+  m_GameObject: {fileID: 1595881280}
   m_Enabled: 1
---- !u!124 &1613984587
+--- !u!124 &1595881282
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1613984585}
+  m_GameObject: {fileID: 1595881280}
   m_Enabled: 1
---- !u!92 &1613984588
+--- !u!92 &1595881283
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1613984585}
+  m_GameObject: {fileID: 1595881280}
   m_Enabled: 1
---- !u!20 &1613984589
+--- !u!20 &1595881284
 Camera:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1613984585}
+  m_GameObject: {fileID: 1595881280}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
@@ -159,27 +207,27 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!4 &1613984590
+--- !u!4 &1595881285
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1613984585}
+  m_GameObject: {fileID: 1595881280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &1854987150
+--- !u!1 &2025898225
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 1854987152}
-  - 108: {fileID: 1854987151}
+  - 4: {fileID: 2025898227}
+  - 108: {fileID: 2025898226}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -187,12 +235,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!108 &1854987151
+--- !u!108 &2025898226
 Light:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1854987150}
+  m_GameObject: {fileID: 2025898225}
   m_Enabled: 1
   serializedVersion: 6
   m_Type: 1
@@ -220,12 +268,12 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
---- !u!4 &1854987152
+--- !u!4 &2025898227
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1854987150}
+  m_GameObject: {fileID: 2025898225}
   m_LocalRotation: {x: 0.40821794, y: -0.23456973, z: 0.109381676, w: 0.87542605}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
