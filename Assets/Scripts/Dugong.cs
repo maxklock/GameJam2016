@@ -6,16 +6,6 @@
     {
         #region methods
 
-        // Use this for initialization
-        private void Start()
-        {
-        }
-
-        // Update is called once per frame
-        private void Update()
-        {
-        }
-
         private void OnCollisionEnter(Collision col)
         {
             var pearl = col.gameObject.GetComponent<Pearl>();
@@ -42,6 +32,16 @@
             }
 
             Destroy(pearl.gameObject);
+        }
+
+        // Use this for initialization
+        private void Start()
+        {
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
         }
 
         #endregion

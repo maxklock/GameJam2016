@@ -4,12 +4,11 @@
     using System.Linq;
 
     using UnityEngine;
-    using UnityEngine.UI;
 
     public class Game : MonoBehaviour
     {
         #region member vars
-        
+
         public bool AllowEmptyViewPort = true;
         public InputType[] InputTypes = { InputType.Joystick1, InputType.Joystick2, InputType.Joystick3, InputType.Keyboard };
         public Player Player;

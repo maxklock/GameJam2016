@@ -1,41 +1,49 @@
-﻿using UnityEngine;
-using System.Collections;
-using Assets.Scripts;
+﻿namespace Assets.Scripts.Bullets
+{
+    using UnityEngine;
 
-public class BulletsProps : MonoBehaviour {
-
-    public float maxLifeTime = 2;
-    private float rLifeTime = 0;
-
-    private int id;
-
-    public void Init(int playerId)
+    public class BulletsProps : MonoBehaviour
     {
-        this.id = playerId;
+        #region member vars
 
-    }
-    
-	// Use this for initialization
-	void Start () {
+        private int _id;
 
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        rLifeTime += Time.deltaTime;
+        public float MaxLifeTime = 2;
+        private float _rLifeTime;
 
-        if(rLifeTime> maxLifeTime)
+        #endregion
+
+        #region methods
+
+        public void Init(int playerId)
         {
-            GameObject.Destroy(this.gameObject);
+            _id = playerId;
         }
-	}
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.GetComponent<Player>() != null && (int)collision.gameObject.GetComponent<Player>().Id != id)
+        private void OnCollisionEnter(Collision collision)
         {
-            collision.gameObject.GetComponent<Player>().ResetPosition();
+            if (collision.gameObject.GetComponent<Player>() != null && (int)collision.gameObject.GetComponent<Player>().Id != _id)
+            {
+                collision.gameObject.GetComponent<Player>().ResetPosition();
+            }
         }
+
+        // Use this for initialization
+        private void Start()
+        {
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+            _rLifeTime += Time.deltaTime;
+
+            if (_rLifeTime > MaxLifeTime)
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        #endregion
     }
 }

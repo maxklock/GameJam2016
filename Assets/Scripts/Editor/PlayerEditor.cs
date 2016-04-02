@@ -17,6 +17,7 @@
             // PlayerId
             player.Id = (PlayerId)EditorGUILayout.EnumPopup(new GUIContent("Id"), player.Id);
             player.Points = EditorGUILayout.IntField(new GUIContent("Points"), player.Points);
+            player.BulletsFab = (GameObject)EditorGUILayout.ObjectField(new GUIContent(""), player.BulletsFab, typeof(GameObject), true);
             EditorGUILayout.Space();
 
             // Camera

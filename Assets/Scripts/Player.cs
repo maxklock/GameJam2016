@@ -1,50 +1,99 @@
 ﻿namespace Assets.Scripts
 {
+    using Assets.Scripts.Bullets;
+
     using UnityEngine;
-    using UnityEngine.UI;
 
     using UnityStandardAssets.Water;
+
     [RequireComponent(typeof(Rigidbody))]
     public class Player : MonoBehaviour
     {
         #region member vars
 
-        public Camera Camera;
-        private Transform _pearlParent;
-        private Water _water;
-        private Vector3 _startPosition;
-        private float _grabTimer;
-        private Rigidbody _rigidbody;
-        private bool _onGround;
-        private int _maxBullets = 10;
+        private readonly int _maxBullets = 10;
+        private readonly float maxCoolTime = 0.6f;
         private int _bulletsLeft = 10;
-        private float maxCoolTime =0.6f;
-        private float rCoolTime = 0;
-
+        private float _grabTimer;
+        private bool _onGround;
+        private Transform _pearlParent;
+        private float _rCoolTime;
         private Rigidbody _rigidbody;
-        public float CameraDistance = 10;
-        public float MinCameraDistance = 4;
-        public float MaxCameraDistance = 35;
-        public float CameraDistanceSpeed = 1f;
-        public float CameraSpeed = 1f;
-        public GameObject BulletsFab;
+        private Vector3 _startPosition;
+        private Water _water;
 
-        public Vector3 LookAtOffset;
+        public GameObject BulletsFab;
+        public Camera Camera;
+        public float CameraDistance = 10;
+        public float CameraDistanceSpeed = 1f;
         public float CameraRotation = -45;
+        public float CameraSpeed = 1f;
         public float DropSpeed = 2.0f;
-        public Vector3 GrabOffset = new Vector3(0, 0, 1);
         public float GrabLock = 2.0f;
+        public Vector3 GrabOffset = new Vector3(0, 0, 1);
         public PlayerId Id;
         public InputType InputType;
+        public float JumpSpeed = 5.0f;
+        public Vector3 LookAtOffset;
+        public float MaxCameraDistance = 35;
+        public float MinCameraDistance = 4;
+        public int Points;
         public float RotationSpeed = 1.0f;
         public float Speed = 5.0f;
-        public int Points;
         public Rect ViewPort = new Rect(0, 0, 0.5f, 0.5f);
-        public float JumpSpeed = 5.0f;
 
         #endregion
 
         #region methods
+
+        public void DropPearl()
+        {
+            _grabTimer = GrabLock;
+            GrappedPearl.transform.parent = _pearlParent;
+            GrappedPearl.Rigidbody.isKinematic = false;
+            GrappedPearl.transform.rotation = transform.rotation;
+            GrappedPearl.Rigidbody.AddRelativeForce(new Vector3(0, 0, DropSpeed * 100));
+            GrappedPearl.GetComponent<Collider>().enabled = true;
+            GrappedPearl = null;
+        }
+
+        public void GrapPearl(Pearl pearl)
+        {
+            if (_grabTimer > 0)
+            {
+                return;
+            }
+            GrappedPearl = pearl;
+            _pearlParent = pearl.transform.parent;
+            pearl.transform.parent = transform;
+            pearl.transform.localPosition = GrabOffset;
+            pearl.Rigidbody.isKinematic = true;
+            pearl.Rigidbody.velocity = Vector3.zero;
+            pearl.GetComponent<Collider>().enabled = false;
+        }
+
+        public void InitPlayer()
+        {
+            if (Camera != null)
+            {
+                DestroyImmediate(Camera);
+            }
+
+            transform.LookAt(new Vector3(0, transform.position.y, 0));
+
+            var obj = new GameObject("Camera");
+            obj.AddComponent<Camera>();
+            Camera = obj.GetComponent<Camera>();
+            Camera.rect = ViewPort;
+            Camera.transform.parent = transform;
+
+            RotateCamera(0, 0);
+        }
+
+        public void ResetPosition()
+        {
+            transform.position = _startPosition;
+        }
 
         private void OnCollisionEnter(Collision col)
         {
@@ -76,41 +125,10 @@
                 return;
             }
 
-            if (GrappedPearl == null && Input.GetButton("A " + (int)Id))
+            if (GrappedPearl == null && Input.GetButton("A " + (int)InputType))
             {
                 GrapPearl(pearl);
             }
-        }
-
-        public void ResetPosition ()
-        {
-            this.transform.position = _startPosition;
-        }
-
-        public void GrapPearl(Pearl pearl)
-        {
-            if (_grabTimer > 0)
-            {
-                return;
-            }
-            GrappedPearl = pearl;
-            _pearlParent = pearl.transform.parent;
-            pearl.transform.parent = transform;
-            pearl.transform.localPosition = GrabOffset;
-            pearl.Rigidbody.isKinematic = true;
-            pearl.Rigidbody.velocity = Vector3.zero;
-            pearl.GetComponent<Collider>().enabled = false;
-        }
-
-        public void DropPearl()
-        {
-            _grabTimer = GrabLock;
-            GrappedPearl.transform.parent = _pearlParent;
-            GrappedPearl.Rigidbody.isKinematic = false;
-            GrappedPearl.transform.rotation = transform.rotation;
-            GrappedPearl.Rigidbody.AddRelativeForce(new Vector3(0, 0, DropSpeed * 100));
-            GrappedPearl.GetComponent<Collider>().enabled = true;
-            GrappedPearl = null;
         }
 
         private void RotateCamera(float vertical, float distance)
@@ -129,22 +147,17 @@
             Camera.transform.LookAt(transform.position + LookAtOffset);
         }
 
-        public void InitPlayer()
+        private void Shoot()
         {
-            if (Camera != null)
+            if (_bulletsLeft > 0)
             {
-                DestroyImmediate(Camera);
+                GameObject obj = Instantiate(BulletsFab);
+                obj.transform.position = transform.position + (transform.localRotation * Vector3.forward) + new Vector3(0, 0.5f, 0);
+                obj.GetComponent<Rigidbody>().velocity = (transform.localRotation * Vector3.forward) * 60;
+                obj.GetComponent<BulletsProps>().Init((int)Id);
+
+                _bulletsLeft--;
             }
-
-            transform.LookAt(new Vector3(0, transform.position.y, 0));
-
-            var obj = new GameObject("Camera");
-            obj.AddComponent<Camera>();
-            Camera = obj.GetComponent<Camera>();
-            Camera.rect = ViewPort;
-            Camera.transform.parent = transform;
-
-            RotateCamera(0, 0);
         }
 
         // Use this for initialization
@@ -158,48 +171,29 @@
             _grabTimer = -1;
         }
 
-        private void Shoot()
-        {
-            if (_bulletsLeft > 0)
-            {
-                GameObject obj = GameObject.Instantiate(BulletsFab);
-                obj.transform.position = this.transform.position + (this.transform.localRotation * Vector3.forward) + new Vector3(0, 0.5f, 0) ;
-                obj.GetComponent<Rigidbody>().velocity = (this.transform.localRotation * Vector3.forward)*60;
-                obj.GetComponent<BulletsProps>().Init((int)Id);
-
-                _bulletsLeft--;
-
-            }
-
-        }
-
         // Update is called once per frame
         private void Update()
         {
-_grabTimer -= Time.deltaTime;
+            _grabTimer -= Time.deltaTime;
             if (_grabTimer < -1)
             {
                 _grabTimer = -1;
             }
             Rigidbody.AddForce(new Vector3(0, -100, 0));
-			//if(Input.GetButtonDown("B "+(int)Id))
-            if (Input.GetKeyDown(KeyCode.Z))
-                Shoot();
 
-            if(_bulletsLeft< _maxBullets)
+            if (_bulletsLeft < _maxBullets)
             {
-                rCoolTime += Time.deltaTime;
-                if(rCoolTime>maxCoolTime)
+                _rCoolTime += Time.deltaTime;
+                if (_rCoolTime > maxCoolTime)
                 {
-                    rCoolTime = 0;
+                    _rCoolTime = 0;
                     _bulletsLeft++;
-
                 }
-            }            if (this.transform.position.y < _water.transform.position.y-2)
+            }
+            if (transform.position.y < _water.transform.position.y - 2)
             {
-                this.transform.position = _startPosition;
+                transform.position = _startPosition;
                 ResetPosition();
-
             }
 
             transform.Translate(new Vector3(0, 0, Input.GetAxis("Vertical Left " + (int)InputType)) * 0.05f * Speed * Time.deltaTime * 60, Space.Self);
@@ -207,10 +201,14 @@ _grabTimer -= Time.deltaTime;
 
             RotateCamera(Input.GetAxis("Vertical Right " + (int)InputType) * 0.5f * Time.deltaTime * 60, Input.GetAxis("3rd " + (int)InputType) * 0.5f * Time.deltaTime * 60);
 
-            if (_onGround && Input.GetButtonDown("Y " + (int)Id))
+            if (_onGround && Input.GetButtonDown("Y " + (int)InputType))
             {
-                Debug.Log("Jump");
                 Rigidbody.AddForce(new Vector3(0, 1000 * JumpSpeed, 0));
+            }
+
+            if (Input.GetButtonDown("B " + (int)InputType))
+            {
+                Shoot();
             }
 
             if (GrappedPearl != null && Input.GetButtonDown("A " + (int)InputType))
