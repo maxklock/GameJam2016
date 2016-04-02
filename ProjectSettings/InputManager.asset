@@ -393,8 +393,8 @@ InputManager:
     m_Name: 3rd 5
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: q
-    positiveButton: e
+    negativeButton: o
+    positiveButton: i
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3
