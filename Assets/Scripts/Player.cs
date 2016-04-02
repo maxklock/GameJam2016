@@ -155,7 +155,7 @@
                     return;
                 }
 
-                _onGround = col.contacts.Any(c => c.point.y < transform.position.y + 0.01f);
+                _onGround = col.contacts.Any(c => c.point.y < transform.position.y + 0.31f);
 
                 return;
             }
@@ -250,6 +250,12 @@
                 animator.SetBool("running", true);
                 if (Mathf.Abs(vertInput) < 0.1f)
                 animator.SetBool("running", false);
+
+                if (Random.Range(0, 100) > 80)
+                    animator.SetBool("idle_long", true);
+                else
+                    animator.SetBool("idle_long", false);
+                animator.SetBool("jumping", false);
             }
 
             transform.Rotate(new Vector3(0, Input.GetAxis("Horizontal Left " + (int)InputType) * 0.5f * RotationSpeed * Time.deltaTime * 60, 0), Space.Self);
@@ -258,7 +264,10 @@
 
             if (_onGround && Input.GetButtonDown("Y " + (int)InputType))
             {
+
                 Rigidbody.AddForce(new Vector3(0, JumpFactor * JumpSpeed, 0));
+                animator.SetBool("jumping", true);
+
             }
 
             if (Input.GetButtonDown("B " + (int)InputType))
