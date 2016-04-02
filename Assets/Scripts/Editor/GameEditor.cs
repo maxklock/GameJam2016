@@ -27,8 +27,14 @@
             var game = (Game)target;
             serializedObject.Update();
 
+            var tmpPlayer = (Player)EditorGUILayout.ObjectField(new GUIContent("Player"), game.Player, typeof(Player), false);
             var tmpSplit = (Orientation)EditorGUILayout.EnumPopup(new GUIContent("Split Screen"), game.SplitScreen);
             var tmpAllow = EditorGUILayout.Toggle(new GUIContent("Allow Empty ViewPort"), game.AllowEmptyViewPort);
+            if (game.Player != tmpPlayer)
+            {
+                game.Player = tmpPlayer;
+                hasChanged = true;
+            }
             if (game.SplitScreen != tmpSplit)
             {
                 game.SplitScreen = tmpSplit;

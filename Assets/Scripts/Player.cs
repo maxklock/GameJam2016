@@ -24,11 +24,11 @@
         private Animator animator;
         public float BulletCoolTime = 0.6f;
 
-        public GameObject BulletsFab;
+        public BulletsProps BulletsFab;
         public Camera Camera;
         public float CameraDistance = 10;
         public float CameraDistanceSpeed = 1f;
-        public float CameraRotation = -45;
+        public float CameraRotation = 45;
         public float CameraSpeed = 1f;
         public float DropSpeed = 2.0f;
         public float GrabLock = 2.0f;
@@ -41,6 +41,8 @@
         public int MaxBullets = 10;
         public float MaxCameraDistance = 35;
         public float MinCameraDistance = 4;
+        public float MinCameraRotation = 1.0f;
+        public float MaxCameraRotation = 80.0f;
         public int Points;
         public float PushDistance = 2.0f;
         public float RotationSpeed = 1.0f;
@@ -175,8 +177,9 @@
             CameraDistance = Mathf.Clamp(CameraDistance, MinCameraDistance, MaxCameraDistance);
 
             CameraRotation += vertical * CameraSpeed;
+            CameraRotation = Mathf.Clamp(CameraRotation, MinCameraRotation, MaxCameraRotation);
 
-            Camera.transform.Rotate(Vector3.left, CameraRotation, Space.Self);
+            Camera.transform.Rotate(Vector3.left, -CameraRotation, Space.Self);
             Camera.transform.Translate(new Vector3(0, 0, -CameraDistance), Space.Self);
 
             Camera.transform.LookAt(transform.position + LookAtOffset);
@@ -186,10 +189,10 @@
         {
             if (_bulletsLeft > 0)
             {
-                GameObject obj = Instantiate(BulletsFab);
+                var obj = Instantiate(BulletsFab);
                 obj.transform.position = transform.position + (transform.localRotation * Vector3.forward) + new Vector3(0, 0.5f, 0);
                 obj.GetComponent<Rigidbody>().velocity = (transform.localRotation * Vector3.forward) * 60;
-                obj.GetComponent<BulletsProps>().Init((int)Id);
+                obj.Init((int)Id);
 
                 _bulletsLeft--;
             }

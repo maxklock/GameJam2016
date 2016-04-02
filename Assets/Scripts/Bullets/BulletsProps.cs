@@ -2,6 +2,7 @@
 {
     using UnityEngine;
 
+    [RequireComponent(typeof(Rigidbody))]
     public class BulletsProps : MonoBehaviour
     {
         #region member vars

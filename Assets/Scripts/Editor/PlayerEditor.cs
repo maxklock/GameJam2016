@@ -1,5 +1,7 @@
 ﻿namespace Assets.Scripts.Editor
 {
+    using Assets.Scripts.Bullets;
+
     using UnityEditor;
 
     using UnityEngine;
@@ -7,6 +9,8 @@
     [CustomEditor(typeof(Player))]
     public class PlayerEditor : Editor
     {
+        private bool _camera;
+
         #region methods
 
         public override void OnInspectorGUI()
@@ -17,7 +21,7 @@
             // PlayerId
             player.Id = (PlayerId)EditorGUILayout.EnumPopup(new GUIContent("Id"), player.Id);
             player.Points = EditorGUILayout.IntField(new GUIContent("Points"), player.Points);
-            player.BulletsFab = (GameObject)EditorGUILayout.ObjectField(new GUIContent(""), player.BulletsFab, typeof(GameObject), true);
+            player.BulletsFab = (BulletsProps)EditorGUILayout.ObjectField(new GUIContent("Bullet"), player.BulletsFab, typeof(BulletsProps), true);
             EditorGUILayout.Space();
 
             // Camera
@@ -38,7 +42,15 @@
                 EditorGUILayout.Space();
 
                 // Camera Angle
-                player.CameraRotation = EditorGUILayout.FloatField(new GUIContent("Angle"), player.CameraRotation);
+                player.CameraRotation = EditorGUILayout.Slider(new GUIContent("Angle"), player.CameraRotation, player.MinCameraRotation, player.MaxCameraRotation);
+                EditorGUILayout.BeginVertical();
+                EditorGUI.indentLevel++;
+                {
+                    player.MinCameraRotation = EditorGUILayout.FloatField(new GUIContent("Minimum"), player.MinCameraRotation);
+                    player.MaxCameraRotation = EditorGUILayout.FloatField(new GUIContent("Maximum"), player.MaxCameraRotation);
+                }
+                EditorGUI.indentLevel--;
+                EditorGUILayout.EndVertical();
                 EditorGUILayout.Space();
 
                 // Camera Speed
