@@ -13,10 +13,6 @@
     {
         #region member vars
 
-        private const float JumpFactor = 1000;
-
-        private const int MaxBullets = 10;
-        private const float MaxCoolTime = 0.6f;
         private int _bulletsLeft = 10;
         private float _grabTimer;
         private bool _onGround;
@@ -25,6 +21,7 @@
         private Rigidbody _rigidbody;
         private Vector3 _startPosition;
         private Water _water;
+        public float BulletCoolTime = 0.6f;
 
         public GameObject BulletsFab;
         public Camera Camera;
@@ -39,12 +36,21 @@
         public InputType InputType;
         public float JumpSpeed = 5.0f;
         public Vector3 LookAtOffset;
+
+        public int MaxBullets = 10;
         public float MaxCameraDistance = 35;
         public float MinCameraDistance = 4;
         public int Points;
+        public float PushDistance = 2.0f;
         public float RotationSpeed = 1.0f;
         public float Speed = 5.0f;
         public Rect ViewPort = new Rect(0, 0, 0.5f, 0.5f);
+
+        #endregion
+
+        #region constants
+
+        private const float JumpFactor = 1000;
 
         #endregion
 
@@ -94,6 +100,20 @@
             Camera.transform.parent = transform;
 
             RotateCamera(0, 0);
+        }
+
+        public void PushPearl(Vector3 source)
+        {
+            _grabTimer = GrabLock;
+            GrappedPearl.Drop();
+            GrappedPearl.transform.parent = _pearlParent;
+            GrappedPearl.Rigidbody.isKinematic = false;
+            GrappedPearl.transform.rotation = transform.rotation;
+            var dir = transform.position - source;
+            dir.Normalize();
+            GrappedPearl.Rigidbody.AddForce(dir * DropSpeed * 100);
+            GrappedPearl.GetComponent<Collider>().enabled = true;
+            GrappedPearl = null;
         }
 
         public void ResetPosition()
@@ -198,7 +218,7 @@
             if (_bulletsLeft < MaxBullets)
             {
                 _rCoolTime += Time.deltaTime;
-                if (_rCoolTime > MaxCoolTime)
+                if (_rCoolTime > BulletCoolTime)
                 {
                     _rCoolTime = 0;
                     _bulletsLeft++;
@@ -213,9 +233,9 @@
             var vertInput = Input.GetAxis("Vertical Left " + (int)InputType);
             var ray = new Ray(transform.position + new Vector3(0, 1, 0), transform.forward);
             RaycastHit hit;
-            var front = Physics.Raycast(ray, out hit) && hit.distance < 1;
+            var front = Physics.Raycast(ray, out hit, 1.0f);
             ray.direction *= -1;
-            var back = Physics.Raycast(ray, out hit) && hit.distance < 1;
+            var back = Physics.Raycast(ray, out hit, 1.0f);
 
             if ((!front || vertInput < 0) && (!back || vertInput > 0))
             {
@@ -234,6 +254,22 @@
             if (Input.GetButtonDown("B " + (int)InputType))
             {
                 Shoot();
+            }
+
+            if (Input.GetButtonDown("X " + (int)InputType))
+            {
+                ray = new Ray(transform.position + new Vector3(0, 1, 0), transform.forward);
+
+                Debug.DrawRay(ray.origin, ray.direction);
+
+                if (Physics.Raycast(ray, out hit, PushDistance))
+                {
+                    var player = hit.collider.gameObject.GetComponentInParent<Player>();
+                    if (player != null)
+                    {
+                        player.PushPearl(transform.position);
+                    }
+                }
             }
 
             if (GrappedPearl != null && Input.GetButtonDown("A " + (int)InputType))

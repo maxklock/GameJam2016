@@ -7,30 +7,29 @@
     {
         #region member vars
 
-        private Rigidbody _rigidbody;
         private Renderer _renderer;
+
+        private Rigidbody _rigidbody;
         private float _startLifeTime;
+        public float LifeTime = 30.0f;
 
         public float MaxDepth = -10;
-        public float LifeTime = 30.0f;
 
         [Range(0.0f, 1.0f)]
         public float MinAlpha = 0.25f;
-
-        public bool IsGrabbed { get; private set; }
 
         #endregion
 
         #region methods
 
-        public void Grab()
-        {
-            IsGrabbed = true;
-        }
-
         public void Drop()
         {
             IsGrabbed = false;
+        }
+
+        public void Grab()
+        {
+            IsGrabbed = true;
         }
 
         // Use this for initialization
@@ -66,6 +65,8 @@
         #endregion
 
         #region properties
+
+        public bool IsGrabbed { get; private set; }
 
         public Rigidbody Rigidbody
         {
