@@ -53,6 +53,7 @@
         public void DropPearl()
         {
             _grabTimer = GrabLock;
+            GrappedPearl.Drop();
             GrappedPearl.transform.parent = _pearlParent;
             GrappedPearl.Rigidbody.isKinematic = false;
             GrappedPearl.transform.rotation = transform.rotation;
@@ -68,12 +69,13 @@
                 return;
             }
             GrappedPearl = pearl;
-            _pearlParent = pearl.transform.parent;
-            pearl.transform.parent = transform;
-            pearl.transform.localPosition = GrabOffset;
-            pearl.Rigidbody.isKinematic = true;
-            pearl.Rigidbody.velocity = Vector3.zero;
-            pearl.GetComponent<Collider>().enabled = false;
+            _pearlParent = GrappedPearl.transform.parent;
+            GrappedPearl.Grab();
+            GrappedPearl.transform.parent = transform;
+            GrappedPearl.transform.localPosition = GrabOffset;
+            GrappedPearl.Rigidbody.isKinematic = true;
+            GrappedPearl.Rigidbody.velocity = Vector3.zero;
+            GrappedPearl.GetComponent<Collider>().enabled = false;
         }
 
         public void InitPlayer()
