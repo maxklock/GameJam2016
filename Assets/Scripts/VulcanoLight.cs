@@ -1,25 +1,35 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿namespace Assets.Scripts
+{
+    using UnityEngine;
 
-public class VulcanoLight : MonoBehaviour {
+    public class VulcanoLight : MonoBehaviour
+    {
+        #region member vars
 
-    Light pointLight;
+        private Light _pointLight;
+        private float _rf;
 
-    float rf = 0;
+        #endregion
 
-	// Use this for initialization
-	void Start () {
-        pointLight = GetComponent<Light>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        #region methods
 
-        if(Random.value>0.8)
-            rf += Random.value / 2;
+        // Use this for initialization
+        private void Start()
+        {
+            _pointLight = GetComponent<Light>();
+        }
 
-        pointLight.intensity = 6 + Mathf.Sin(Time.realtimeSinceStartup+rf)*3;
+        // Update is called once per frame
+        private void Update()
+        {
+            if (Random.value > 0.8)
+            {
+                _rf += Random.value / 2;
+            }
 
+            _pointLight.intensity = 6 + Mathf.Sin(Time.realtimeSinceStartup + _rf) * 3;
+        }
 
+        #endregion
     }
 }

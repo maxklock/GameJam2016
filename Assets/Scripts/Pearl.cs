@@ -1,22 +1,19 @@
-﻿using UnityEngine;
-
-namespace Assets.Scripts
+﻿namespace Assets.Scripts
 {
+    using UnityEngine;
+
     [RequireComponent(typeof(Rigidbody))]
     public class Pearl : MonoBehaviour
     {
-        #region methods
+        #region member vars
+
+        private Rigidbody _rigidbody;
 
         public float MaxDepth = -10;
 
-        private Rigidbody _rigidbody;
-        public Rigidbody Rigidbody
-        {
-            get
-            {
-                return _rigidbody = _rigidbody ?? GetComponent<Rigidbody>();
-            }
-        }
+        #endregion
+
+        #region methods
 
         // Use this for initialization
         private void Start()
@@ -29,6 +26,18 @@ namespace Assets.Scripts
             if (transform.position.y < MaxDepth)
             {
                 Destroy(gameObject);
+            }
+        }
+
+        #endregion
+
+        #region properties
+
+        public Rigidbody Rigidbody
+        {
+            get
+            {
+                return _rigidbody = _rigidbody ?? GetComponent<Rigidbody>();
             }
         }
 

@@ -16,4 +16,10 @@
         Joystick4 = 4,
         Keyboard = 5
     }
+
+    public enum Orientation
+    {
+        Horizontal,
+        Vertical
+    }
 }

@@ -8,23 +8,40 @@
     public class Vulcan : MonoBehaviour
     {
         #region member vars
-        
-        public float SpawnRate = 2;
-        public Vector3 SpawnOffset;
-        public float SpawnRange = 1;
-        public float MaxSpawnSpeed = 5.0f;
-        public float MaxJumpSpeed = 10.0f;
 
-        public Pearl[] PearlTypes;
-
-        public List<Pearl> Pearls { get; private set; }
+        private GameObject _pearlsObject;
 
         private float _timer;
-        private GameObject _pearlsObject;
+        public float MaxJumpSpeed = 10.0f;
+        public float MaxSpawnSpeed = 5.0f;
+
+        public Pearl[] PearlTypes;
+        public Vector3 SpawnOffset;
+        public float SpawnRange = 1;
+
+        public float SpawnRate = 2;
 
         #endregion
 
         #region methods
+
+        private void SpawnPearl()
+        {
+            var rnd = Random.Range(0, PearlTypes.Length);
+            var pearl = Instantiate(PearlTypes[rnd]);
+
+            var spawnpos = Random.onUnitSphere * SpawnRange * MaxSpawnSpeed;
+            spawnpos.y = 0;
+
+            pearl.transform.position = transform.position + SpawnOffset + spawnpos;
+            pearl.transform.parent = _pearlsObject.transform;
+
+            Pearls.Add(pearl);
+
+            spawnpos.y = Random.Range(0, MaxJumpSpeed);
+
+            pearl.Rigidbody.AddForce(spawnpos * 100);
+        }
 
         // Use this for initialization
         private void Start()
@@ -46,23 +63,11 @@
             }
         }
 
-        private void SpawnPearl()
-        {
-            var rnd = Random.Range(0, PearlTypes.Length);
-            var pearl = Instantiate(PearlTypes[rnd]);
+        #endregion
 
-            var spawnpos = Random.onUnitSphere * SpawnRange * MaxSpawnSpeed;
-            spawnpos.y = 0;
+        #region properties
 
-            pearl.transform.position = transform.position + SpawnOffset + spawnpos;
-            pearl.transform.parent = _pearlsObject.transform;
-
-            Pearls.Add(pearl);
-            
-            spawnpos.y = Random.Range(0, MaxJumpSpeed);
-
-            pearl.Rigidbody.AddForce(spawnpos * 100);
-        }
+        public List<Pearl> Pearls { get; private set; }
 
         #endregion
     }
