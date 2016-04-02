@@ -13,32 +13,53 @@
         private Transform _pearlParent;
         private Water _water;
         private Vector3 _startPosition;
-
+        private float _grabTimer;
         private Rigidbody _rigidbody;
+        private bool _onGround;
+
         public float CameraDistance = 10;
         public float MinCameraDistance = 4;
         public float MaxCameraDistance = 35;
         public float CameraDistanceSpeed = 1f;
         public float CameraSpeed = 1f;
-
         public Vector3 LookAtOffset;
         public float CameraRotation = -45;
         public float DropSpeed = 2.0f;
-
         public Vector3 GrabOffset = new Vector3(0, 0, 1);
-
+        public float GrabLock = 2.0f;
         public PlayerId Id;
         public InputType InputType;
         public float RotationSpeed = 1.0f;
         public float Speed = 5.0f;
-
         public int Points;
-
         public Rect ViewPort = new Rect(0, 0, 0.5f, 0.5f);
+        public float JumpSpeed = 5.0f;
 
         #endregion
 
         #region methods
+
+        private void OnCollisionEnter(Collision col)
+        {
+            var terrain = col.gameObject.GetComponent<Terrain>();
+            if (terrain == null)
+            {
+                return;
+            }
+
+            _onGround = true;
+        }
+
+        private void OnCollisionExit(Collision col)
+        {
+            var terrain = col.gameObject.GetComponent<Terrain>();
+            if (terrain == null)
+            {
+                return;
+            }
+
+            _onGround = false;
+        }
 
         private void OnCollisionStay(Collision col)
         {
@@ -56,6 +77,10 @@
 
         public void GrapPearl(Pearl pearl)
         {
+            if (_grabTimer > 0)
+            {
+                return;
+            }
             GrappedPearl = pearl;
             _pearlParent = pearl.transform.parent;
             pearl.transform.parent = transform;
@@ -67,6 +92,7 @@
 
         public void DropPearl()
         {
+            _grabTimer = GrabLock;
             GrappedPearl.transform.parent = _pearlParent;
             GrappedPearl.Rigidbody.isKinematic = false;
             GrappedPearl.transform.rotation = transform.rotation;
@@ -117,11 +143,17 @@
             _startPosition = transform.position;
             _water = FindObjectOfType<Water>();
 
+            _grabTimer = -1;
         }
 
         // Update is called once per frame
         private void Update()
         {
+            _grabTimer -= Time.deltaTime;
+            if (_grabTimer < -1)
+            {
+                _grabTimer = -1;
+            }
             Rigidbody.AddForce(new Vector3(0, -100, 0));
 
             if (transform.position.y < _water.transform.position.y-2)
@@ -133,7 +165,13 @@
             transform.Translate(new Vector3(0, 0, Input.GetAxis("Vertical Left " + (int)InputType)) * 0.05f * Speed * Time.deltaTime * 60, Space.Self);
             transform.Rotate(new Vector3(0, Input.GetAxis("Horizontal Left " + (int)InputType) * 0.5f * RotationSpeed * Time.deltaTime * 60, 0), Space.Self);
 
-            RotateCamera(Input.GetAxis("Vertical Right " + (int)InputType) * 0.5f * Time.deltaTime * 60, Input.GetAxis("Horizontal Right " + (int)InputType) * 0.5f * Time.deltaTime * 60);
+            RotateCamera(Input.GetAxis("Vertical Right " + (int)InputType) * 0.5f * Time.deltaTime * 60, Input.GetAxis("3rd " + (int)InputType) * 0.5f * Time.deltaTime * 60);
+
+            if (_onGround && Input.GetButtonDown("Y " + (int)Id))
+            {
+                Debug.Log("Jump");
+                Rigidbody.AddForce(new Vector3(0, 1000 * JumpSpeed, 0));
+            }
 
             if (GrappedPearl != null && Input.GetButtonDown("A " + (int)InputType))
             {

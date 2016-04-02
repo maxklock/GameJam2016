@@ -65,6 +65,7 @@
             EditorGUI.indentLevel++;
             {
                 player.InputType = (InputType)EditorGUILayout.EnumPopup(new GUIContent("Input"), player.InputType);
+                player.JumpSpeed = EditorGUILayout.FloatField(new GUIContent("Jumping"), player.JumpSpeed);
                 player.Speed = EditorGUILayout.FloatField(new GUIContent("Speed"), player.Speed);
                 player.RotationSpeed = EditorGUILayout.FloatField(new GUIContent("Rotation Speed"), player.RotationSpeed);
             }
@@ -78,6 +79,7 @@
             EditorGUI.indentLevel++;
             {
                 player.DropSpeed = EditorGUILayout.FloatField(new GUIContent("Drop Speed"), player.DropSpeed);
+                player.GrabLock = EditorGUILayout.FloatField(new GUIContent("Grab Lock"), player.GrabLock);
                 player.GrabOffset = EditorGUILayout.Vector3Field(new GUIContent("Grab Offset"), player.GrabOffset);
             }
             EditorGUI.indentLevel--;
