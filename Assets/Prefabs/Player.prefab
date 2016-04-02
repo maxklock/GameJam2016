@@ -42,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 183524}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 462652}
@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 408852}
@@ -100,9 +100,9 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150922}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 5
-  m_AngularDrag: 5
+  m_Mass: 10
+  m_Drag: 0
+  m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -119,18 +119,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8af2da669ed62443b36c2395bfac5c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectedCameraOffset: 0
+  SelectedCameraOffset: 1
   CameraOffsets:
   - {x: 0, y: 1, z: -2}
   - {x: 0, y: 2, z: -4}
   - {x: 0, y: 3, z: -6}
+  LookAtOffset: {x: 0, y: 1, z: 0}
   CameraRotation: {x: -20, y: 0}
   DropSpeed: 2
-  GrabOffset: {x: 0, y: 0, z: 1}
+  GrabOffset: {x: 0, y: 1, z: 1}
   Id: 0
   InputType: 0
-  RotationSpeed: 1
-  Speed: 5
+  RotationSpeed: 20
+  Speed: 20
   ViewPort:
     serializedVersion: 2
     x: 0

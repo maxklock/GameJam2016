@@ -73,6 +73,8 @@
                 DestroyImmediate(_camera);
             }
 
+            transform.LookAt(new Vector3(0, transform.position.y, 0));
+
             var obj = new GameObject("Camera");
             obj.AddComponent<Camera>();
             _camera = obj.GetComponent<Camera>();
@@ -91,6 +93,16 @@
         // Update is called once per frame
         private void Update()
         {
+            if (Mathf.Abs(Input.GetAxis("Vertical Left " + (int)InputType)) <= 0.01)
+            {
+                Rigidbody.velocity = new Vector3(0, Rigidbody.velocity.y, 0);
+            }
+
+            if (Mathf.Abs(Input.GetAxis("Horizontal Left " + (int)InputType)) <= 0.01)
+            {
+                Rigidbody.angularVelocity = new Vector3(0, 0, 0);
+            }
+
             Rigidbody.AddRelativeForce(new Vector3(0, 0, Input.GetAxis("Vertical Left " + (int)InputType)) * 10 * Speed);
             Rigidbody.AddRelativeTorque(new Vector3(0, Input.GetAxis("Horizontal Left " + (int)InputType) * RotationSpeed, 0));
 

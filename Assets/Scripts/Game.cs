@@ -14,8 +14,9 @@
         public Player Player;
         public int PlayerCount = 2;
         public Orientation SplitScreen = Orientation.Horizontal;
+        public bool AllowEmptyViewPort = true;
 
-        public Vector3[] StartPositions = { new Vector3(-70, 0, -70), new Vector3(70, 0, 70), new Vector3(70, 0, -70), new Vector3(-70, 0, 70) };
+        public Vector3[] StartPositions = { new Vector3(-60, 0, -60), new Vector3(60, 0, 60), new Vector3(60, 0, -60), new Vector3(-60, 0, 60) };
         public InputType[] InputTypes = { InputType.Joystick1, InputType.Joystick2, InputType.Joystick3, InputType.Keyboard,  };
 
         #endregion
@@ -24,14 +25,7 @@
 
         public void InitPlayers()
         {
-            if (_playerHolder != null)
-            {
-                DestroyImmediate(_playerHolder);
-            }
-
-            _playerHolder = new GameObject("Players");
-
-            var players = _playerHolder.GetComponentsInChildren<Player>();
+            var players = GetComponentsInChildren<Player>();
             foreach (var player in players)
             {
                 DestroyImmediate(player.gameObject);
@@ -41,7 +35,7 @@
             {
                 var player = Instantiate(Player);
                 player.name += " " + (i + 1);
-                player.transform.parent = _playerHolder.transform;
+                player.transform.parent = transform;
                 player.Id = (PlayerId)(i + 1);
                 player.InputType = InputTypes[i];
 
@@ -60,6 +54,19 @@
                         }
                         break;
                     case 3:
+                        player.transform.position = StartPositions[i];
+                        if (!AllowEmptyViewPort)
+                        {
+                            player.ViewPort = new Rect(0.3333f * i, 0, 0.3333f, 1);
+                            if (SplitScreen == Orientation.Vertical)
+                            {
+                                player.ViewPort = new Rect(0, 0.3333f * i, 1, 0.3333f);
+                            }
+                            break;
+                        }
+                        // ReSharper disable once PossibleLossOfFraction
+                        player.ViewPort = new Rect(0.5f * (i / 2), 0.5f * (i % 2), 0.5f, 0.5f);
+                        break;
                     case 4:
                         player.transform.position = StartPositions[i];
                         // ReSharper disable once PossibleLossOfFraction

@@ -8,6 +8,7 @@
     public class GameEditor : Editor
     {
         private const int MaxPlayers = 4;
+        private bool _autoUpdate = true;
 
         public override void OnInspectorGUI()
         {
@@ -21,16 +22,21 @@
                 game.PlayerCount = tmpCount;
                 hasChanged = true;
             }
-
             if (game.StartPositions.Length != 4)
             {
                 game.StartPositions = new Vector3[4];
             }
 
             var tmpSplit = (Orientation)EditorGUILayout.EnumPopup(new GUIContent("Split Screen"), game.SplitScreen);
+            var tmpAllow = EditorGUILayout.Toggle(new GUIContent("Allow Empty ViewPort"), game.AllowEmptyViewPort);
             if (game.SplitScreen != tmpSplit)
             {
                 game.SplitScreen = tmpSplit;
+                hasChanged = true;
+            }
+            if (game.AllowEmptyViewPort != tmpAllow)
+            {
+                game.AllowEmptyViewPort = tmpAllow;
                 hasChanged = true;
             }
 
@@ -59,12 +65,14 @@
                 EditorGUILayout.EndVertical();
             }
 
-            if (GUILayout.Button(new GUIContent("Update")))
+            var btnUpdateClicked = GUILayout.Button(new GUIContent("Update"));
+
+            if ((hasChanged && _autoUpdate) || btnUpdateClicked)
             {
                 game.InitPlayers();
             }
 
-            serializedObject.ApplyModifiedProperties();
+            _autoUpdate = EditorGUILayout.Toggle(new GUIContent("Auto Update"), _autoUpdate);
         }
     }
 }

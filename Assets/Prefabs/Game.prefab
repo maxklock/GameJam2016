@@ -75,13 +75,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 11496510, guid: 8a876d16744780d4e84f80d1dfc88375, type: 2}
-  PlayerCount: 3
-  SplitScreen: 0
+  PlayerCount: 4
+  SplitScreen: 1
   StartPositions:
-  - {x: -70, y: 0, z: -70}
-  - {x: 70, y: 0, z: 70}
-  - {x: -70, y: 0, z: 70}
-  - {x: 70, y: 0, z: -70}
+  - {x: -60, y: 0, z: -60}
+  - {x: 60, y: 0, z: 60}
+  - {x: -60, y: 0, z: 60}
+  - {x: 60, y: 0, z: -60}
   InputTypes: 01000000020000000300000005000000
 --- !u!1001 &100100000
 Prefab:
