@@ -1,5 +1,7 @@
 ﻿namespace Assets.Scripts
 {
+    using System.Linq;
+
     using Assets.Scripts.Bullets;
 
     using UnityEngine;
@@ -11,8 +13,10 @@
     {
         #region member vars
 
-        private readonly int _maxBullets = 10;
-        private readonly float maxCoolTime = 0.6f;
+        private const float JumpFactor = 1000;
+
+        private const int MaxBullets = 10;
+        private const float MaxCoolTime = 0.6f;
         private int _bulletsLeft = 10;
         private float _grabTimer;
         private bool _onGround;
@@ -122,6 +126,14 @@
             var pearl = col.transform.GetComponent<Pearl>();
             if (pearl == null)
             {
+                var terrain = col.gameObject.GetComponent<Terrain>();
+                if (terrain == null)
+                {
+                    return;
+                }
+
+                _onGround = col.contacts.Any(c => c.point.y < transform.position.y + 0.01f);
+
                 return;
             }
 
@@ -181,10 +193,10 @@
             }
             Rigidbody.AddForce(new Vector3(0, -100, 0));
 
-            if (_bulletsLeft < _maxBullets)
+            if (_bulletsLeft < MaxBullets)
             {
                 _rCoolTime += Time.deltaTime;
-                if (_rCoolTime > maxCoolTime)
+                if (_rCoolTime > MaxCoolTime)
                 {
                     _rCoolTime = 0;
                     _bulletsLeft++;
@@ -196,14 +208,25 @@
                 ResetPosition();
             }
 
-            transform.Translate(new Vector3(0, 0, Input.GetAxis("Vertical Left " + (int)InputType)) * 0.05f * Speed * Time.deltaTime * 60, Space.Self);
+            var vertInput = Input.GetAxis("Vertical Left " + (int)InputType);
+            var ray = new Ray(transform.position + new Vector3(0, 1, 0), transform.forward);
+            RaycastHit hit;
+            var front = Physics.Raycast(ray, out hit) && hit.distance < 1;
+            ray.direction *= -1;
+            var back = Physics.Raycast(ray, out hit) && hit.distance < 1;
+
+            if ((!front || vertInput < 0) && (!back || vertInput > 0))
+            {
+                transform.Translate(new Vector3(0, 0, vertInput) * 0.05f * Speed * Time.deltaTime * 60, Space.Self);
+            }
+
             transform.Rotate(new Vector3(0, Input.GetAxis("Horizontal Left " + (int)InputType) * 0.5f * RotationSpeed * Time.deltaTime * 60, 0), Space.Self);
 
             RotateCamera(Input.GetAxis("Vertical Right " + (int)InputType) * 0.5f * Time.deltaTime * 60, Input.GetAxis("3rd " + (int)InputType) * 0.5f * Time.deltaTime * 60);
 
             if (_onGround && Input.GetButtonDown("Y " + (int)InputType))
             {
-                Rigidbody.AddForce(new Vector3(0, 1000 * JumpSpeed, 0));
+                Rigidbody.AddForce(new Vector3(0, JumpFactor * JumpSpeed, 0));
             }
 
             if (Input.GetButtonDown("B " + (int)InputType))
