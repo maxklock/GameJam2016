@@ -1,7 +1,7 @@
 ﻿namespace Assets.Scripts
 {
     using UnityEngine;
-
+    using UnityStandardAssets.Water;
     [RequireComponent(typeof(Rigidbody))]
     public class Player : MonoBehaviour
     {
@@ -9,6 +9,8 @@
 
         private Camera _camera;
         private Transform _pearlParent;
+        private Water _water;
+        private Vector3 _startPosition;
 
         private Rigidbody _rigidbody;
         public float CameraDistance = 10;
@@ -29,6 +31,7 @@
         public float Speed = 5.0f;
 
         public Rect ViewPort = new Rect(0, 0, 0.5f, 0.5f);
+
 
         #endregion
 
@@ -87,11 +90,20 @@
         private void Start()
         {
             _camera = GetComponentInChildren<Camera>();
+
+            _startPosition = this.transform.position;
+            _water = FindObjectOfType<Water>();
+
         }
 
         // Update is called once per frame
         private void Update()
         {
+            if (this.transform.position.y < _water.transform.position.y-2)
+            {
+                this.transform.position = _startPosition;
+            }
+
             transform.Translate(new Vector3(0, 0, Input.GetAxis("Vertical Left " + (int)InputType)) * 0.05f * Speed * Time.deltaTime * 60, Space.Self);
             transform.Rotate(new Vector3(0, Input.GetAxis("Horizontal Left " + (int)InputType) * 0.5f * RotationSpeed * Time.deltaTime * 60, 0), Space.Self);
 
