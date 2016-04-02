@@ -209,7 +209,7 @@ MonoBehaviour:
   CameraDistanceSpeed: 1
   CameraSpeed: 1
   LookAtOffset: {x: 0, y: 1, z: 0}
-  CameraRotation: {x: -45, y: 0}
+  CameraRotation: 6
   DropSpeed: 2
   GrabOffset: {x: 0, y: 1, z: 1}
   Id: 1
@@ -364,6 +364,30 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11417528, guid: 9255b551bb83ff84583f9c6d104c7556, type: 2}
+      propertyPath: waterMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417528, guid: 9255b551bb83ff84583f9c6d104c7556, type: 2}
+      propertyPath: reflectLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417528, guid: 9255b551bb83ff84583f9c6d104c7556, type: 2}
+      propertyPath: refractLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2384244, guid: 9255b551bb83ff84583f9c6d104c7556, type: 2}
+      propertyPath: m_UseLightProbes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2384244, guid: 9255b551bb83ff84583f9c6d104c7556, type: 2}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417308, guid: 9255b551bb83ff84583f9c6d104c7556, type: 2}
+      propertyPath: SpawnRate
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9255b551bb83ff84583f9c6d104c7556, type: 2}
   m_IsPrefabParent: 0
@@ -477,7 +501,7 @@ MonoBehaviour:
   CameraDistanceSpeed: 1
   CameraSpeed: 1
   LookAtOffset: {x: 0, y: 1, z: 0}
-  CameraRotation: {x: -45, y: 0}
+  CameraRotation: 6
   DropSpeed: 2
   GrabOffset: {x: 0, y: 1, z: 1}
   Id: 2
