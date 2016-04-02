@@ -1,0 +1,589 @@
+fileFormatVersion: 2
+guid: 34169ec2fa8310e4591a3b20a75df6c4
+timeCreated: 1459627946
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bone002
+    100002: Bone003
+    100004: Bone011
+    100006: Bone012
+    100008: Bone015
+    100010: Bone016
+    100012: Bone018
+    100014: Bone019
+    100016: Bone020
+    100018: Bone021
+    100020: Bone022
+    100022: Bone023
+    100024: Bone024
+    100026: Bone026
+    100028: Bone027
+    100030: Bone028
+    100032: Bone029
+    100034: Bone030
+    100036: Bone031
+    100038: Bone032
+    100040: Bone037
+    100042: Bone038
+    100044: Bone039
+    100046: Bone040
+    100048: Bone041
+    100050: Bone042
+    100052: Bone043
+    100054: Bone044
+    100056: Bone045
+    100058: Bone046
+    100060: Bone047
+    100062: Bone048
+    100064: Bone049
+    100066: Bone050
+    100068: eyeEndL
+    100070: eyeEndR
+    100072: eyeHelpL
+    100074: eyeHelpR
+    100076: eyeL
+    100078: eyeR
+    100080: handEndL
+    100082: handEndR
+    100084: head
+    100086: headHelpL
+    100088: headHelpR
+    100090: legHelpL
+    100092: legHelpR
+    100094: neck
+    100096: Panda
+    100098: //RootNode
+    100100: root
+    100102: Sphere001
+    100104: Sphere004
+    400000: Bone002
+    400002: Bone003
+    400004: Bone011
+    400006: Bone012
+    400008: Bone015
+    400010: Bone016
+    400012: Bone018
+    400014: Bone019
+    400016: Bone020
+    400018: Bone021
+    400020: Bone022
+    400022: Bone023
+    400024: Bone024
+    400026: Bone026
+    400028: Bone027
+    400030: Bone028
+    400032: Bone029
+    400034: Bone030
+    400036: Bone031
+    400038: Bone032
+    400040: Bone037
+    400042: Bone038
+    400044: Bone039
+    400046: Bone040
+    400048: Bone041
+    400050: Bone042
+    400052: Bone043
+    400054: Bone044
+    400056: Bone045
+    400058: Bone046
+    400060: Bone047
+    400062: Bone048
+    400064: Bone049
+    400066: Bone050
+    400068: eyeEndL
+    400070: eyeEndR
+    400072: eyeHelpL
+    400074: eyeHelpR
+    400076: eyeL
+    400078: eyeR
+    400080: handEndL
+    400082: handEndR
+    400084: head
+    400086: headHelpL
+    400088: headHelpR
+    400090: legHelpL
+    400092: legHelpR
+    400094: neck
+    400096: Panda
+    400098: //RootNode
+    400100: root
+    400102: Sphere001
+    400104: Sphere004
+    4300000: Panda
+    4300002: Sphere001
+    4300004: Sphere004
+    7400000: run
+    7400002: jump
+    7400004: stay
+    9500000: //RootNode
+    13700000: Panda
+    13700002: Sphere001
+    13700004: Sphere004
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: run
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Panda
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/Bone002
+        weight: 1
+      - path: root/Bone002/Bone003
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021/Bone022
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024/handEndL
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029/Bone030
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029/Bone030/Bone031
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029/Bone030/Bone031/Bone032
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029/Bone030/Bone031/Bone032/handEndR
+        weight: 1
+      - path: root/Bone002/Bone003/neck
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/Bone041
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/Bone041/Bone042
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpL
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpL/eyeL
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpL/eyeL/eyeEndL
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpR
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpR/eyeR
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpR/eyeR/eyeEndR
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpL
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpL/Bone039
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpL/Bone039/Bone040
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpR
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpR/Bone037
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpR/Bone037/Bone038
+        weight: 1
+      - path: root/Bone002/Bone049
+        weight: 1
+      - path: root/Bone002/Bone049/Bone050
+        weight: 1
+      - path: root/Bone002/legHelpL
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015/Bone016
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015/Bone016/Bone043
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015/Bone016/Bone043/Bone044
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015/Bone016/Bone043/Bone044/Bone045
+        weight: 1
+      - path: root/Bone002/legHelpR
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011/Bone012
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011/Bone012/Bone046
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011/Bone012/Bone046/Bone047
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011/Bone012/Bone046/Bone047/Bone048
+        weight: 1
+      - path: Sphere001
+        weight: 1
+      - path: Sphere004
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: jump
+      takeName: Take 001
+      firstFrame: 35
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Panda
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/Bone002
+        weight: 1
+      - path: root/Bone002/Bone003
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021/Bone022
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024/handEndL
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029/Bone030
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029/Bone030/Bone031
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029/Bone030/Bone031/Bone032
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029/Bone030/Bone031/Bone032/handEndR
+        weight: 1
+      - path: root/Bone002/Bone003/neck
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/Bone041
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/Bone041/Bone042
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpL
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpL/eyeL
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpL/eyeL/eyeEndL
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpR
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpR/eyeR
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpR/eyeR/eyeEndR
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpL
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpL/Bone039
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpL/Bone039/Bone040
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpR
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpR/Bone037
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpR/Bone037/Bone038
+        weight: 1
+      - path: root/Bone002/Bone049
+        weight: 1
+      - path: root/Bone002/Bone049/Bone050
+        weight: 1
+      - path: root/Bone002/legHelpL
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015/Bone016
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015/Bone016/Bone043
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015/Bone016/Bone043/Bone044
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015/Bone016/Bone043/Bone044/Bone045
+        weight: 1
+      - path: root/Bone002/legHelpR
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011/Bone012
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011/Bone012/Bone046
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011/Bone012/Bone046/Bone047
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011/Bone012/Bone046/Bone047/Bone048
+        weight: 1
+      - path: Sphere001
+        weight: 1
+      - path: Sphere004
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: stay
+      takeName: Take 001
+      firstFrame: 11
+      lastFrame: 12
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Panda
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/Bone002
+        weight: 1
+      - path: root/Bone002/Bone003
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021/Bone022
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024
+        weight: 1
+      - path: root/Bone002/Bone003/Bone018/Bone019/Bone020/Bone021/Bone022/Bone023/Bone024/handEndL
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029/Bone030
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029/Bone030/Bone031
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029/Bone030/Bone031/Bone032
+        weight: 1
+      - path: root/Bone002/Bone003/Bone026/Bone027/Bone028/Bone029/Bone030/Bone031/Bone032/handEndR
+        weight: 1
+      - path: root/Bone002/Bone003/neck
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/Bone041
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/Bone041/Bone042
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpL
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpL/eyeL
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpL/eyeL/eyeEndL
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpR
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpR/eyeR
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/eyeHelpR/eyeR/eyeEndR
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpL
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpL/Bone039
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpL/Bone039/Bone040
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpR
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpR/Bone037
+        weight: 1
+      - path: root/Bone002/Bone003/neck/head/headHelpR/Bone037/Bone038
+        weight: 1
+      - path: root/Bone002/Bone049
+        weight: 1
+      - path: root/Bone002/Bone049/Bone050
+        weight: 1
+      - path: root/Bone002/legHelpL
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015/Bone016
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015/Bone016/Bone043
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015/Bone016/Bone043/Bone044
+        weight: 1
+      - path: root/Bone002/legHelpL/Bone015/Bone016/Bone043/Bone044/Bone045
+        weight: 1
+      - path: root/Bone002/legHelpR
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011/Bone012
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011/Bone012/Bone046
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011/Bone012/Bone046/Bone047
+        weight: 1
+      - path: root/Bone002/legHelpR/Bone011/Bone012/Bone046/Bone047/Bone048
+        weight: 1
+      - path: Sphere001
+        weight: 1
+      - path: Sphere004
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

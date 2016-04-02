@@ -25,6 +25,7 @@
         private Rigidbody _rigidbody;
         private Vector3 _startPosition;
         private Water _water;
+        private Animator animator;
 
         public GameObject BulletsFab;
         public Camera Camera;
@@ -176,6 +177,7 @@
         private void Start()
         {
             Camera = GetComponentInChildren<Camera>();
+            animator = GetComponentInChildren<Animator>();
 
             _startPosition = transform.position;
             _water = FindObjectOfType<Water>();
@@ -186,6 +188,7 @@
         // Update is called once per frame
         private void Update()
         {
+
             _grabTimer -= Time.deltaTime;
             if (_grabTimer < -1)
             {
@@ -215,9 +218,16 @@
             ray.direction *= -1;
             var back = Physics.Raycast(ray, out hit) && hit.distance < 1;
 
+            
+
+
             if ((!front || vertInput < 0) && (!back || vertInput > 0))
             {
+
                 transform.Translate(new Vector3(0, 0, vertInput) * 0.05f * Speed * Time.deltaTime * 60, Space.Self);
+                animator.SetBool("running", true);
+                if (Mathf.Abs(vertInput) < 0.1f)
+                animator.SetBool("running", false);
             }
 
             transform.Rotate(new Vector3(0, Input.GetAxis("Horizontal Left " + (int)InputType) * 0.5f * RotationSpeed * Time.deltaTime * 60, 0), Space.Self);
