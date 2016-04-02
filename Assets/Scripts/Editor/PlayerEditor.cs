@@ -85,6 +85,19 @@
             }
             EditorGUI.indentLevel--;
             EditorGUILayout.EndVertical();
+            EditorGUILayout.Space();
+
+            // Attack
+            EditorGUILayout.PrefixLabel(new GUIContent("Attack:"));
+            EditorGUILayout.BeginVertical();
+            EditorGUI.indentLevel++;
+            {
+                player.PushDistance = EditorGUILayout.FloatField(new GUIContent("Push Distance"), player.PushDistance);
+                player.MaxBullets = EditorGUILayout.IntField(new GUIContent("Max Bullets"), player.MaxBullets);
+                player.BulletCoolTime = EditorGUILayout.FloatField(new GUIContent("Bullet Cool Time"), player.BulletCoolTime);
+            }
+            EditorGUI.indentLevel--;
+            EditorGUILayout.EndVertical();
 
             serializedObject.ApplyModifiedProperties();
         }

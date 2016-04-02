@@ -13,10 +13,6 @@
     {
         #region member vars
 
-        private const float JumpFactor = 1000;
-
-        private const int MaxBullets = 10;
-        private const float MaxCoolTime = 0.6f;
         private int _bulletsLeft = 10;
         private float _grabTimer;
         private bool _onGround;
@@ -26,6 +22,7 @@
         private Vector3 _startPosition;
         private Water _water;
         private Animator animator;
+        public float BulletCoolTime = 0.6f;
 
         public GameObject BulletsFab;
         public Camera Camera;
@@ -40,12 +37,21 @@
         public InputType InputType;
         public float JumpSpeed = 5.0f;
         public Vector3 LookAtOffset;
+
+        public int MaxBullets = 10;
         public float MaxCameraDistance = 35;
         public float MinCameraDistance = 4;
         public int Points;
+        public float PushDistance = 2.0f;
         public float RotationSpeed = 1.0f;
         public float Speed = 5.0f;
         public Rect ViewPort = new Rect(0, 0, 0.5f, 0.5f);
+
+        #endregion
+
+        #region constants
+
+        private const float JumpFactor = 1000;
 
         #endregion
 
@@ -54,6 +60,7 @@
         public void DropPearl()
         {
             _grabTimer = GrabLock;
+            GrappedPearl.Drop();
             GrappedPearl.transform.parent = _pearlParent;
             GrappedPearl.Rigidbody.isKinematic = false;
             GrappedPearl.transform.rotation = transform.rotation;
@@ -69,12 +76,13 @@
                 return;
             }
             GrappedPearl = pearl;
-            _pearlParent = pearl.transform.parent;
-            pearl.transform.parent = transform;
-            pearl.transform.localPosition = GrabOffset;
-            pearl.Rigidbody.isKinematic = true;
-            pearl.Rigidbody.velocity = Vector3.zero;
-            pearl.GetComponent<Collider>().enabled = false;
+            _pearlParent = GrappedPearl.transform.parent;
+            GrappedPearl.Grab();
+            GrappedPearl.transform.parent = transform;
+            GrappedPearl.transform.localPosition = GrabOffset;
+            GrappedPearl.Rigidbody.isKinematic = true;
+            GrappedPearl.Rigidbody.velocity = Vector3.zero;
+            GrappedPearl.GetComponent<Collider>().enabled = false;
         }
 
         public void InitPlayer()
@@ -93,6 +101,20 @@
             Camera.transform.parent = transform;
 
             RotateCamera(0, 0);
+        }
+
+        public void PushPearl(Vector3 source)
+        {
+            _grabTimer = GrabLock;
+            GrappedPearl.Drop();
+            GrappedPearl.transform.parent = _pearlParent;
+            GrappedPearl.Rigidbody.isKinematic = false;
+            GrappedPearl.transform.rotation = transform.rotation;
+            var dir = transform.position - source;
+            dir.Normalize();
+            GrappedPearl.Rigidbody.AddForce(dir * DropSpeed * 100);
+            GrappedPearl.GetComponent<Collider>().enabled = true;
+            GrappedPearl = null;
         }
 
         public void ResetPosition()
@@ -199,7 +221,7 @@
             if (_bulletsLeft < MaxBullets)
             {
                 _rCoolTime += Time.deltaTime;
-                if (_rCoolTime > MaxCoolTime)
+                if (_rCoolTime > BulletCoolTime)
                 {
                     _rCoolTime = 0;
                     _bulletsLeft++;
@@ -214,9 +236,9 @@
             var vertInput = Input.GetAxis("Vertical Left " + (int)InputType);
             var ray = new Ray(transform.position + new Vector3(0, 1, 0), transform.forward);
             RaycastHit hit;
-            var front = Physics.Raycast(ray, out hit) && hit.distance < 1;
+            var front = Physics.Raycast(ray, out hit, 1.0f);
             ray.direction *= -1;
-            var back = Physics.Raycast(ray, out hit) && hit.distance < 1;
+            var back = Physics.Raycast(ray, out hit, 1.0f);
 
             
 
@@ -242,6 +264,22 @@
             if (Input.GetButtonDown("B " + (int)InputType))
             {
                 Shoot();
+            }
+
+            if (Input.GetButtonDown("X " + (int)InputType))
+            {
+                ray = new Ray(transform.position + new Vector3(0, 1, 0), transform.forward);
+
+                Debug.DrawRay(ray.origin, ray.direction);
+
+                if (Physics.Raycast(ray, out hit, PushDistance))
+                {
+                    var player = hit.collider.gameObject.GetComponentInParent<Player>();
+                    if (player != null)
+                    {
+                        player.PushPearl(transform.position);
+                    }
+                }
             }
 
             if (GrappedPearl != null && Input.GetButtonDown("A " + (int)InputType))

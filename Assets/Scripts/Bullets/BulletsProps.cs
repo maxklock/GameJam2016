@@ -7,9 +7,9 @@
         #region member vars
 
         private int _id;
+        private float _rLifeTime;
 
         public float MaxLifeTime = 2;
-        private float _rLifeTime;
 
         #endregion
 

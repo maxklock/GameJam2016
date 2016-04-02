@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxDepth: -20
+  LifeTime: 30
+  MinAlpha: 0.25
 --- !u!135 &13573724
 SphereCollider:
   m_ObjectHideFlags: 1
