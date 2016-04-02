@@ -12,12 +12,19 @@
         private Water _water;
         private Vector3 _startPosition;
 
+        private int _maxBullets = 10;
+        private int _bulletsLeft = 10;
+        private float maxCoolTime =0.6f;
+        private float rCoolTime = 0;
+
         private Rigidbody _rigidbody;
         public float CameraDistance = 10;
         public float MinCameraDistance = 4;
         public float MaxCameraDistance = 35;
         public float CameraDistanceSpeed = 1f;
         public float CameraSpeed = 1f;
+
+        public GameObject BulletsFab;
 
         public Vector3 LookAtOffset;
         public float CameraRotation = -45;
@@ -50,6 +57,11 @@
                 pearl.Rigidbody.velocity = Vector3.zero;
                 pearl.GetComponent<Collider>().enabled = false;
             }
+        }
+
+        public void ResetPosition ()
+        {
+            this.transform.position = _startPosition;
         }
 
         private void RotateCamera(float vertical, float distance)
@@ -96,12 +108,42 @@
 
         }
 
+        private void Shoot()
+        {
+            if (_bulletsLeft > 0)
+            {
+                GameObject obj = GameObject.Instantiate(BulletsFab);
+                obj.transform.position = this.transform.position + (this.transform.localRotation * Vector3.forward) + new Vector3(0, 0.5f, 0) ;
+                obj.GetComponent<Rigidbody>().velocity = (this.transform.localRotation * Vector3.forward)*60;
+                obj.GetComponent<BulletsProps>().Init((int)Id);
+
+                _bulletsLeft--;
+
+            }
+
+        }
+
         // Update is called once per frame
         private void Update()
         {
+            //if(Input.GetButtonDown("B "+(int)Id))
+            if (Input.GetKeyDown(KeyCode.Z))
+                Shoot();
+
+            if(_bulletsLeft< _maxBullets)
+            {
+                rCoolTime += Time.deltaTime;
+                if(rCoolTime>maxCoolTime)
+                {
+                    rCoolTime = 0;
+                    _bulletsLeft++;
+
+                }
+            }
+
             if (this.transform.position.y < _water.transform.position.y-2)
             {
-                this.transform.position = _startPosition;
+                ResetPosition();
             }
 
             transform.Translate(new Vector3(0, 0, Input.GetAxis("Vertical Left " + (int)InputType)) * 0.05f * Speed * Time.deltaTime * 60, Space.Self);
