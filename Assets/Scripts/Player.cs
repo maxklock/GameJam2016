@@ -11,16 +11,14 @@
         private Transform _pearlParent;
 
         private Rigidbody _rigidbody;
-        public int SelectedCameraOffset = 0;
-        public Vector3[] CameraOffsets =
-        {
-            new Vector3(0, 1, -2),
-            new Vector3(0, 2, -4),
-            new Vector3(0, 3, -6)
-        };
+        public float CameraDistance = 10;
+        public float MinCameraDistance = 4;
+        public float MaxCameraDistance = 35;
+        public float CameraDistanceSpeed = 1f;
+        public float CameraSpeed = 1f;
 
         public Vector3 LookAtOffset;
-        public Vector2 CameraRotation = new Vector2(-20, 0);
+        public float CameraRotation = -45;
         public float DropSpeed = 2.0f;
 
         public Vector3 GrabOffset = new Vector3(0, 0, 1);
@@ -51,17 +49,18 @@
             }
         }
 
-        private void RotateCamera(float vertical, float horizontal)
+        private void RotateCamera(float vertical, float distance)
         {
             _camera.transform.localPosition = Vector3.zero;
             _camera.transform.rotation = transform.rotation;
 
-            CameraRotation.y += horizontal;
-            CameraRotation.x += vertical;
+            CameraDistance += distance * CameraDistanceSpeed;
+            CameraDistance = Mathf.Clamp(CameraDistance, MinCameraDistance, MaxCameraDistance);
 
-            _camera.transform.Rotate(Vector3.up, CameraRotation.y, Space.Self);
-            _camera.transform.Rotate(Vector3.left, CameraRotation.x, Space.Self);
-            _camera.transform.Translate(CameraOffsets[SelectedCameraOffset], Space.Self);
+            CameraRotation += vertical * CameraSpeed;
+
+            _camera.transform.Rotate(Vector3.left, CameraRotation, Space.Self);
+            _camera.transform.Translate(new Vector3(0, 0, -CameraDistance), Space.Self);
 
             _camera.transform.LookAt(transform.position + LookAtOffset);
         }
@@ -93,18 +92,8 @@
         // Update is called once per frame
         private void Update()
         {
-            if (Mathf.Abs(Input.GetAxis("Vertical Left " + (int)InputType)) <= 0.01)
-            {
-                Rigidbody.velocity = new Vector3(0, Rigidbody.velocity.y, 0);
-            }
-
-            if (Mathf.Abs(Input.GetAxis("Horizontal Left " + (int)InputType)) <= 0.01)
-            {
-                Rigidbody.angularVelocity = new Vector3(0, 0, 0);
-            }
-
-            Rigidbody.AddRelativeForce(new Vector3(0, 0, Input.GetAxis("Vertical Left " + (int)InputType)) * 10 * Speed);
-            Rigidbody.AddRelativeTorque(new Vector3(0, Input.GetAxis("Horizontal Left " + (int)InputType) * RotationSpeed, 0));
+            transform.Translate(new Vector3(0, 0, Input.GetAxis("Vertical Left " + (int)InputType)) * 0.1f * Speed, Space.Self);
+            transform.Rotate(new Vector3(0, Input.GetAxis("Horizontal Left " + (int)InputType) * RotationSpeed, 0), Space.Self);
 
             RotateCamera(Input.GetAxis("Vertical Right " + (int)InputType), Input.GetAxis("Horizontal Right " + (int)InputType));
 
@@ -116,11 +105,6 @@
                 GrappedPearl.Rigidbody.AddRelativeForce(new Vector3(0, 0, DropSpeed * 100));
                 GrappedPearl.GetComponent<Collider>().enabled = true;
                 GrappedPearl = null;
-            }
-
-            if (Input.GetButtonDown("B " + (int)InputType))
-            {
-                SelectedCameraOffset = (SelectedCameraOffset + 1) % CameraOffsets.Length;
             }
         }
 
