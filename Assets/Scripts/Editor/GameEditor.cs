@@ -7,25 +7,25 @@
     [CustomEditor(typeof(Game))]
     public class GameEditor : Editor
     {
-        private const int MaxPlayers = 4;
+        #region member vars
+
         private bool _autoUpdate = true;
+
+        #endregion
+
+        #region constants
+
+        private const int MaxPlayers = 4;
+
+        #endregion
+
+        #region methods
 
         public override void OnInspectorGUI()
         {
             var hasChanged = false;
             var game = (Game)target;
             serializedObject.Update();
-
-            var tmpCount = EditorGUILayout.IntSlider(new GUIContent("Player Count"), game.PlayerCount, 1, MaxPlayers);
-            if (game.PlayerCount != tmpCount)
-            {
-                game.PlayerCount = tmpCount;
-                hasChanged = true;
-            }
-            if (game.StartPositions.Length != 4)
-            {
-                game.StartPositions = new Vector3[4];
-            }
 
             var tmpSplit = (Orientation)EditorGUILayout.EnumPopup(new GUIContent("Split Screen"), game.SplitScreen);
             var tmpAllow = EditorGUILayout.Toggle(new GUIContent("Allow Empty ViewPort"), game.AllowEmptyViewPort);
@@ -40,29 +40,46 @@
                 hasChanged = true;
             }
 
+            EditorGUILayout.Space();
+
+            var tmpCount = EditorGUILayout.IntSlider(new GUIContent("Player Count"), game.PlayerCount, 1, MaxPlayers);
+            if (game.PlayerCount != tmpCount)
+            {
+                game.PlayerCount = tmpCount;
+                hasChanged = true;
+            }
+            if (game.StartPositions.Length != 4)
+            {
+                game.StartPositions = new Vector3[4];
+            }
+
+            EditorGUILayout.Space();
+
             for (var i = 0; i < MaxPlayers && i < game.PlayerCount; i++)
             {
                 EditorGUILayout.PrefixLabel(new GUIContent("Player " + (i + 1) + ":"));
                 EditorGUILayout.BeginVertical();
                 EditorGUI.indentLevel++;
-
-                var tmpInput = (InputType)EditorGUILayout.EnumPopup(new GUIContent("Input Type"), game.InputTypes[i]);
-                var tmpStart = EditorGUILayout.Vector3Field(new GUIContent("Start Position"), game.StartPositions[i]);
-
-                if (game.InputTypes[i] != tmpInput)
                 {
-                    game.InputTypes[i] = tmpInput;
-                    hasChanged = true;
-                }
+                    var tmpInput = (InputType)EditorGUILayout.EnumPopup(new GUIContent("Input Type"), game.InputTypes[i]);
+                    var tmpStart = EditorGUILayout.Vector3Field(new GUIContent("Start Position"), game.StartPositions[i]);
 
-                if (game.StartPositions[i] != tmpStart)
-                {
-                    game.StartPositions[i] = tmpStart;
-                    hasChanged = true;
-                }
+                    if (game.InputTypes[i] != tmpInput)
+                    {
+                        game.InputTypes[i] = tmpInput;
+                        hasChanged = true;
+                    }
 
+                    if (game.StartPositions[i] != tmpStart)
+                    {
+                        game.StartPositions[i] = tmpStart;
+                        hasChanged = true;
+                    }
+                }
                 EditorGUI.indentLevel--;
                 EditorGUILayout.EndVertical();
+
+                EditorGUILayout.Space();
             }
 
             var btnUpdateClicked = GUILayout.Button(new GUIContent("Update"));
@@ -73,6 +90,9 @@
             }
 
             _autoUpdate = EditorGUILayout.Toggle(new GUIContent("Auto Update"), _autoUpdate);
+            serializedObject.ApplyModifiedProperties();
         }
+
+        #endregion
     }
 }

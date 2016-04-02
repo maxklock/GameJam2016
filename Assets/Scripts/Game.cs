@@ -1,23 +1,22 @@
 ﻿namespace Assets.Scripts
 {
     using System;
-
-    using UnityEditor;
+    using System.Linq;
 
     using UnityEngine;
+    using UnityEngine.UI;
 
     public class Game : MonoBehaviour
     {
         #region member vars
-
-        private GameObject _playerHolder;
+        
+        public bool AllowEmptyViewPort = true;
+        public InputType[] InputTypes = { InputType.Joystick1, InputType.Joystick2, InputType.Joystick3, InputType.Keyboard };
         public Player Player;
         public int PlayerCount = 2;
         public Orientation SplitScreen = Orientation.Horizontal;
-        public bool AllowEmptyViewPort = true;
 
         public Vector3[] StartPositions = { new Vector3(-60, 0, -60), new Vector3(60, 0, 60), new Vector3(60, 0, -60), new Vector3(-60, 0, 60) };
-        public InputType[] InputTypes = { InputType.Joystick1, InputType.Joystick2, InputType.Joystick3, InputType.Keyboard,  };
 
         #endregion
 
@@ -38,6 +37,7 @@
                 player.transform.parent = transform;
                 player.Id = (PlayerId)(i + 1);
                 player.InputType = InputTypes[i];
+                player.Points = 0;
 
                 switch (PlayerCount)
                 {
@@ -84,7 +84,6 @@
         // Use this for initialization
         private void Start()
         {
-
         }
 
         // Update is called once per frame
