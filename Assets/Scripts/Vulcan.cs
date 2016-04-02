@@ -51,14 +51,14 @@
             var rnd = Random.Range(0, PearlTypes.Length);
             var pearl = Instantiate(PearlTypes[rnd]);
 
-            var spawnpos = Random.onUnitSphere * SpawnRange;
+            var spawnpos = Random.onUnitSphere * SpawnRange * MaxSpawnSpeed;
             spawnpos.y = 0;
 
             pearl.transform.position = transform.position + SpawnOffset + spawnpos;
             pearl.transform.parent = _pearlsObject.transform;
 
             Pearls.Add(pearl);
-
+            
             spawnpos.y = Random.Range(0, MaxJumpSpeed);
 
             pearl.Rigidbody.AddForce(spawnpos * 100);
