@@ -2,6 +2,8 @@
 {
     using System;
 
+    using UnityEditor;
+
     using UnityEngine;
 
     public class Game : MonoBehaviour
@@ -10,22 +12,30 @@
 
         private GameObject _playerHolder;
         public Player Player;
-
-        [Range(1, 4)]
         public int PlayerCount = 2;
-
         public Orientation SplitScreen = Orientation.Horizontal;
 
-        public Vector3[] StartPositions = { new Vector3(-70, 0, -70), new Vector3(-70, 0, 70), new Vector3(70, 0, -70), new Vector3(70, 0, 70) };
+        public Vector3[] StartPositions = { new Vector3(-70, 0, -70), new Vector3(70, 0, 70), new Vector3(70, 0, -70), new Vector3(-70, 0, 70) };
+        public InputType[] InputTypes = { InputType.Joystick1, InputType.Joystick2, InputType.Joystick3, InputType.Keyboard,  };
 
         #endregion
 
         #region methods
 
-        // Use this for initialization
-        private void Start()
+        public void InitPlayers()
         {
+            if (_playerHolder != null)
+            {
+                DestroyImmediate(_playerHolder);
+            }
+
             _playerHolder = new GameObject("Players");
+
+            var players = _playerHolder.GetComponentsInChildren<Player>();
+            foreach (var player in players)
+            {
+                DestroyImmediate(player.gameObject);
+            }
 
             for (var i = 0; i < PlayerCount; i++)
             {
@@ -33,7 +43,7 @@
                 player.name += " " + (i + 1);
                 player.transform.parent = _playerHolder.transform;
                 player.Id = (PlayerId)(i + 1);
-                player.InputType = (InputType)(i + 1);
+                player.InputType = InputTypes[i];
 
                 switch (PlayerCount)
                 {
@@ -42,7 +52,7 @@
                         player.ViewPort = new Rect(0, 0, 1, 1);
                         break;
                     case 2:
-                        player.transform.position = StartPositions[i * 2];
+                        player.transform.position = StartPositions[i];
                         player.ViewPort = new Rect(0.5f * i, 0, 0.5f, 1);
                         if (SplitScreen == Orientation.Vertical)
                         {
@@ -59,7 +69,15 @@
                         // ReSharper disable once NotResolvedInText
                         throw new ArgumentOutOfRangeException("PlayerCount", "PlayerCount must be between 1 and 4");
                 }
+
+                player.InitPlayer();
             }
+        }
+
+        // Use this for initialization
+        private void Start()
+        {
+
         }
 
         // Update is called once per frame

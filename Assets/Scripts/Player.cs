@@ -18,6 +18,8 @@
             new Vector3(0, 2, -4),
             new Vector3(0, 3, -6)
         };
+
+        public Vector3 LookAtOffset;
         public Vector2 CameraRotation = new Vector2(-20, 0);
         public float DropSpeed = 2.0f;
 
@@ -61,17 +63,29 @@
             _camera.transform.Rotate(Vector3.left, CameraRotation.x, Space.Self);
             _camera.transform.Translate(CameraOffsets[SelectedCameraOffset], Space.Self);
 
-            _camera.transform.LookAt(transform);
+            _camera.transform.LookAt(transform.position + LookAtOffset);
         }
 
-        // Use this for initialization
-        private void Start()
+        public void InitPlayer()
         {
+            if (_camera != null)
+            {
+                DestroyImmediate(_camera);
+            }
+
             var obj = new GameObject("Camera");
             obj.AddComponent<Camera>();
             _camera = obj.GetComponent<Camera>();
             _camera.rect = ViewPort;
             _camera.transform.parent = transform;
+
+            RotateCamera(0, 0);
+        }
+
+        // Use this for initialization
+        private void Start()
+        {
+            _camera = GetComponentInChildren<Camera>();
         }
 
         // Update is called once per frame
