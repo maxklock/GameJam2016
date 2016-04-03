@@ -5138,6 +5138,7 @@ MonoBehaviour:
   StateInGame: {fileID: 1241666549}
   StateSelection: {fileID: 1449592145}
   State: 0
+  GameTime: 180
 --- !u!4 &1840418908
 Transform:
   m_ObjectHideFlags: 0

@@ -109,7 +109,6 @@
                 player.InitPlayer();
                 player.SetPoints(0);
                 player.UpdateTime();
-                player.AddMessage("");
             }
 
             Start();
