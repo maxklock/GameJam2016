@@ -27,6 +27,15 @@
         private float maxRespawn = 0.6f;
         private float rRespawn = 0;
         private bool isRespawning = false;
+        private float rollFastSpeed = 2;
+        private float rollSpeed = 1;
+        private float maxRollTime = 1;
+        private float rRollTime= 0;
+        private bool rolling = false;
+        private bool boost = true;
+        private float boostVal = 1;
+        private float boostTime = 0;
+        private float maxboostTime = 3;
 
         public BulletsProps BulletsFab;
         public Camera Camera;
@@ -257,7 +266,37 @@
         {
             UpdateTime();
 
-            if(isRespawning)
+            if (rolling)
+            {
+                rRollTime += Time.deltaTime;
+                rollSpeed = rollFastSpeed;
+
+                if (rRollTime > maxRollTime)
+                {
+                    rRollTime = 0;
+                    rolling = false;
+                    rollSpeed = 1;
+
+                }
+
+            }
+
+
+            if (boost)
+            {
+                boostTime += Time.deltaTime;
+
+                if (boostTime > maxboostTime)
+                {
+                    boostTime = 0;
+                    boost = false;
+                    boostVal = 1;
+
+                }
+
+            }
+
+            if (isRespawning)
             {
                 animator.SetBool("idle_long", true);
                 animator.SetBool("jumping", true);
@@ -331,7 +370,7 @@
             if ((!front || vertInput < 0) && (!back || vertInput > 0) && !isRespawning)
             {
 
-                transform.Translate(new Vector3(0, 0, vertInput) * 0.05f * Speed * Time.deltaTime * 60, Space.Self);
+                transform.Translate(new Vector3(0, 0, vertInput) * 0.05f * Speed * rollSpeed *boostVal* Time.deltaTime * 60, Space.Self);
                 animator.SetBool("running", true);
                 if (Mathf.Abs(vertInput) < 0.1f)
                 animator.SetBool("running", false);
@@ -359,27 +398,29 @@
             {
                 Shoot();
             }
-
+            animator.SetBool("roll", false);
             if (Input.GetButtonDown("X " + (int)InputType) && !isRespawning)
             {
-                ray = new Ray(transform.position + new Vector3(0, 1, 0), transform.forward);
 
-                Debug.DrawRay(ray.origin, ray.direction);
 
-                if (Physics.Raycast(ray, out hit, PushDistance))
-                {
-                    var player = hit.collider.gameObject.GetComponentInParent<Player>();
-                    if (player != null)
-                    {
-                        player.PushPearl(transform.position);
-                    }
-                }
+                rolling = true;
+                if(GrappedPearl!=null)
+                    DropPearl();
+                animator.SetBool("roll", true);
+
+
             }
 
             if (GrappedPearl != null && Input.GetButtonDown("A " + (int)InputType) && !isRespawning)
             {
                 DropPearl();
             }
+        }
+
+        public void StartBoost()
+        {
+            boost = true;
+            boostVal = 2;
         }
 
         #endregion
