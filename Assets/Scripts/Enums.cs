@@ -11,11 +11,18 @@
 
     public enum InputType
     {
+        None = 0,
         Joystick1 = 1,
         Joystick2 = 2,
         Joystick3 = 3,
         Joystick4 = 4,
         Keyboard = 5
+    }
+
+    public enum GameState
+    {
+        PlayerSelection = 0,
+        InGame = 1
     }
 
     public enum Orientation

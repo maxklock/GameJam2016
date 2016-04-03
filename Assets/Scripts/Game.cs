@@ -111,6 +111,8 @@
                 player.UpdateTime();
                 player.AddMessage("");
             }
+
+            Start();
         }
 
         // Use this for initialization
