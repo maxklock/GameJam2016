@@ -152,13 +152,9 @@
             if (_itemSpawn <= 0)
             {
                 _itemSpawn = ItemSpawnTime;
-                AddMessage("New Item");
-
-                for (var i = 0; i < ItemPositions.Length; i++)
-                {
-                    Instantiate(Item, ItemPositions[i], Quaternion.Euler(Vector3.zero));
-                }
-                // Instantiate(Item, GetRandomItemPosition(), Quaternion.Euler(Vector3.zero));
+                AddMessage("New Boost Item");
+                
+                Instantiate(Item, GetRandomItemPosition(), Quaternion.Euler(Vector3.zero));
             }
         }
 

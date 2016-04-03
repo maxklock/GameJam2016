@@ -391,7 +391,6 @@
 
                 Rigidbody.AddForce(new Vector3(0, JumpFactor * JumpSpeed, 0));
                 animator.SetBool("jumping", true);
-
             }
 
             if (Input.GetButtonDown("B " + (int)InputType) && !isRespawning)
@@ -399,7 +398,7 @@
                 Shoot();
             }
             animator.SetBool("roll", false);
-            if (Input.GetButtonDown("X " + (int)InputType) && !isRespawning)
+            if (_onGround && Input.GetButtonDown("X " + (int)InputType) && !isRespawning)
             {
 
 
