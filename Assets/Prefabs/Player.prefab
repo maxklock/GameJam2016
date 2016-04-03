@@ -1573,9 +1573,9 @@ MonoBehaviour:
   BulletCoolTime: 0.6
   BulletsFab: {fileID: 11437230, guid: e2882276193526643a0b47e85bcce884, type: 2}
   Camera: {fileID: 0}
-  CameraDistance: 10
+  CameraDistance: 15
   CameraDistanceSpeed: 1
-  CameraRotation: 1
+  CameraRotation: 35
   CameraSpeed: 1
   DropSpeed: 10
   GrabLock: 2
@@ -1587,7 +1587,7 @@ MonoBehaviour:
   MaxBullets: 10
   MaxCameraDistance: 35
   MinCameraDistance: 5
-  MinCameraRotation: 1
+  MinCameraRotation: 15
   MaxCameraRotation: 80
   Points: 0
   PushDistance: 2
