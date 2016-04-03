@@ -142,7 +142,7 @@
             GrappedPearl = null;
         }
 
-        public void ResetPosition()
+        public void Respawn()
         {
             animator.SetBool("respawn", true);
             isRespawning = true;
@@ -314,8 +314,8 @@
             }
             if (transform.position.y < _water.transform.position.y - 4)
             {
-                transform.position = _startPosition;
-                ResetPosition();
+                //transform.position = _startPosition;
+                Respawn();
             }
 
             var vertInput = Input.GetAxis("Vertical Left " + (int)InputType);
