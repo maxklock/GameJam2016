@@ -24,6 +24,9 @@
         private Water _water;
         private Animator animator;
         public float BulletCoolTime = 0.6f;
+        private float maxRespawn = 0.6f;
+        private float rRespawn = 0;
+        private bool isRespawning = false;
 
         public BulletsProps BulletsFab;
         public Camera Camera;
@@ -75,11 +78,12 @@
             GrappedPearl = null;
         }
 
-        public void AddPoints(int value)
+        public void AddPoints(int value, string message = "")
         {
             SetPoints(Points + value);
-            AddMessage("New Points (" + value + ")");
+            AddMessage(message);
         }
+
         public void SetPoints(int value)
         {
             Points = value;
@@ -140,7 +144,11 @@
 
         public void ResetPosition()
         {
+            animator.SetBool("respawn", true);
+            isRespawning = true;
+            AddPoints(-1 , "You died! (-1 Point)");
             transform.position = _startPosition;
+
 
         }
 
@@ -249,6 +257,45 @@
         {
             UpdateTime();
 
+            if(isRespawning)
+            {
+                animator.SetBool("idle_long", true);
+                animator.SetBool("jumping", true);
+                animator.SetBool("running", true);
+                rRespawn += Time.deltaTime;
+
+                //Body
+                SkinnedMeshRenderer[] sk = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+                Color c = sk[0].material.color;
+                sk[0].material.color = new Color(c.r, c.g, c.b, rRespawn/maxRespawn);
+
+                // Alles andere
+                for (int i = 1; i < sk.Length; i++)
+                {
+                    Color cx = sk[i].material.color;
+                    sk[i].material.color = new Color(cx.r, cx.g, cx.b, 0.001f);
+                }   
+
+
+
+                if (rRespawn>maxRespawn)
+                {
+                    rRespawn = 0;
+                    isRespawning = false;
+                    animator.SetBool("respawn", false);
+
+                }
+            }
+            else
+            {
+                for (int i = 0; i < gameObject.GetComponentsInChildren<SkinnedMeshRenderer>().Length; i++)
+                {
+                    Color cx = gameObject.GetComponentsInChildren<SkinnedMeshRenderer>()[i].material.color;
+                    gameObject.GetComponentsInChildren<SkinnedMeshRenderer>()[i].material.color = new Color(cx.r, cx.g, cx.b, 1);
+                }
+            }
+
             _grabTimer -= Time.deltaTime;
             if (_grabTimer < -1)
             {
@@ -265,7 +312,7 @@
                     _bulletsLeft++;
                 }
             }
-            if (transform.position.y < _water.transform.position.y - 2)
+            if (transform.position.y < _water.transform.position.y - 4)
             {
                 transform.position = _startPosition;
                 ResetPosition();
@@ -281,7 +328,7 @@
             
 
 
-            if ((!front || vertInput < 0) && (!back || vertInput > 0))
+            if ((!front || vertInput < 0) && (!back || vertInput > 0) && !isRespawning)
             {
 
                 transform.Translate(new Vector3(0, 0, vertInput) * 0.05f * Speed * Time.deltaTime * 60, Space.Self);
@@ -295,12 +342,12 @@
                     animator.SetBool("idle_long", false);
                 animator.SetBool("jumping", false);
             }
-
+            if (!isRespawning)
             transform.Rotate(new Vector3(0, Input.GetAxis("Horizontal Left " + (int)InputType) * 0.5f * RotationSpeed * Time.deltaTime * 60, 0), Space.Self);
 
             RotateCamera(Input.GetAxis("Vertical Right " + (int)InputType) * 0.5f * Time.deltaTime * 60, Input.GetAxis("3rd " + (int)InputType) * 0.5f * Time.deltaTime * 60);
 
-            if (_onGround && Input.GetButtonDown("Y " + (int)InputType))
+            if (_onGround && Input.GetButtonDown("Y " + (int)InputType)&& !isRespawning)
             {
 
                 Rigidbody.AddForce(new Vector3(0, JumpFactor * JumpSpeed, 0));
@@ -308,12 +355,12 @@
 
             }
 
-            if (Input.GetButtonDown("B " + (int)InputType))
+            if (Input.GetButtonDown("B " + (int)InputType) && !isRespawning)
             {
                 Shoot();
             }
 
-            if (Input.GetButtonDown("X " + (int)InputType))
+            if (Input.GetButtonDown("X " + (int)InputType) && !isRespawning)
             {
                 ray = new Ray(transform.position + new Vector3(0, 1, 0), transform.forward);
 
@@ -329,7 +376,7 @@
                 }
             }
 
-            if (GrappedPearl != null && Input.GetButtonDown("A " + (int)InputType))
+            if (GrappedPearl != null && Input.GetButtonDown("A " + (int)InputType) && !isRespawning)
             {
                 DropPearl();
             }

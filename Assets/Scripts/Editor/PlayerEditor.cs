@@ -20,6 +20,7 @@
 
             // PlayerId
             player.Id = (PlayerId)EditorGUILayout.EnumPopup(new GUIContent("Id"), player.Id);
+
             player.Points = EditorGUILayout.IntField(new GUIContent("Points"), player.Points);
             player.BulletsFab = (BulletsProps)EditorGUILayout.ObjectField(new GUIContent("Bullet"), player.BulletsFab, typeof(BulletsProps), true);
             EditorGUILayout.Space();
