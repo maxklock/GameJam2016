@@ -10,6 +10,11 @@
     {
         #region member vars
 
+        public Sprite ImgNormal;
+        public Sprite[] ImgPads;
+        public Sprite ImgKeyboard;
+        public Sprite ImgReady;
+
         public Image[] Areas = new Image[4];
         public InputType[] Inputs = new InputType[4];
         public bool[] IsReady = new bool[4];
@@ -24,10 +29,6 @@
             }
         }
 
-        private const float AlphaNormal = 1.0f;
-        private const float AlphaActive = 0.5f;
-        private const float AlphaReady = 0.25f;
-
         #endregion
 
         #region methods
@@ -37,8 +38,23 @@
             for (var i = 0; i < 4; i++)
             {
                 IsReady[i] = false;
-                Areas[i].color = new Color(Areas[i].color.r, Areas[i].color.g, Areas[i].color.b, Inputs[i] == InputType.None ? AlphaNormal : AlphaActive);
+                Areas[i].sprite = InputToSprite(Inputs[i]);
             }
+        }
+
+        private Sprite InputToSprite(InputType input)
+        {
+            if (input == InputType.None)
+            {
+                return ImgNormal;
+            }
+
+            if (input == InputType.Keyboard)
+            {
+                return ImgKeyboard;
+            }
+
+            return ImgPads[(int)input - 1];
         }
 
         private void Add(InputType input)
@@ -54,7 +70,7 @@
                 {
                     PlayerCount++;
                     Inputs[i] = input;
-                    Areas[i].color = new Color(Areas[i].color.r, Areas[i].color.g, Areas[i].color.b, AlphaActive);
+                    Areas[i].sprite = InputToSprite(input);
                     break;
                 }
             }
@@ -73,7 +89,7 @@
                 {
                     PlayerCount--;
                     Inputs[i] = InputType.None;
-                    Areas[i].color = new Color(Areas[i].color.r, Areas[i].color.g, Areas[i].color.b, AlphaNormal);
+                    Areas[i].sprite = ImgNormal;
                     break;
                 }
             }
@@ -91,7 +107,7 @@
                 if (Inputs[i] == input)
                 {
                     IsReady[i] = !IsReady[i];
-                    Areas[i].color = new Color(Areas[i].color.r, Areas[i].color.g, Areas[i].color.b, IsReady[i] ? AlphaReady : AlphaActive);
+                    Areas[i].sprite = IsReady[i] ? ImgReady : InputToSprite(input);
                     break;
                 }
             }
@@ -100,6 +116,7 @@
         // Use this for initialization
         private void Start()
         {
+            Reset();
         }
 
         // Update is called once per frame
