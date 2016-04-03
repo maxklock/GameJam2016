@@ -52,7 +52,7 @@
             pearl.transform.position = transform.position + SpawnOffset + spawnpos;
             pearl.transform.parent = _pearlsObject.transform;
 
-            if (pearl.NotifyPlayer)
+            if (_game != null && pearl.NotifyPlayer)
             {
                 _game.AddMessage(pearl.NotifyMessage);
             }
