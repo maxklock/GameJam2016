@@ -28,7 +28,7 @@
 
                 pearl = player.GrappedPearl;
                 player.DropPearl();
-                player.GivePoints(pearl.Points);
+                player.AddPoints(pearl.Points);
                 Destroy(pearl.gameObject);
 
                 return;
@@ -44,7 +44,7 @@
                     throw new ArgumentOutOfRangeException("Player.Id", "There is more than one Player with Id " + pearl.LastPlayer);
                 }
 
-                players.First().GivePoints(pearl.Points);
+                players.First().AddPoints(pearl.Points);
             }
             Destroy(pearl.gameObject);
         }

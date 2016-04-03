@@ -44,8 +44,6 @@
                 break;
             }
 
-            Debug.Log(pearl.name);
-
             var spawnpos = Random.onUnitSphere * SpawnRange * MaxSpawnSpeed;
             spawnpos.y = 0;
 

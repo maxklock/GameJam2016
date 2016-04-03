@@ -5,6 +5,7 @@
 
     using UnityEngine;
 
+    [RequireComponent(typeof(UiManager))]
     public class Game : MonoBehaviour
     {
         #region member vars
@@ -17,17 +18,23 @@
 
         public Vector3[] StartPositions = { new Vector3(-60, 0, -60), new Vector3(60, 0, 60), new Vector3(60, 0, -60), new Vector3(-60, 0, 60) };
 
+        public UiManager UiManager;
+
         #endregion
 
         #region methods
 
         public void InitPlayers()
         {
+            UiManager = GetComponent<UiManager>();
+
             var players = GetComponentsInChildren<Player>();
             foreach (var player in players)
             {
                 DestroyImmediate(player.gameObject);
             }
+
+            UiManager.ClearPlayerUis();
 
             for (var i = 0; i < PlayerCount; i++)
             {
@@ -36,7 +43,7 @@
                 player.transform.parent = transform;
                 player.Id = (PlayerId)(i + 1);
                 player.InputType = InputTypes[i];
-                player.Points = 0;
+                player.PlayerUi = UiManager.GetPlayerUi(player.Id);
 
                 switch (PlayerCount)
                 {
@@ -77,6 +84,7 @@
                 }
 
                 player.InitPlayer();
+                player.SetPoints(0);
             }
         }
 
