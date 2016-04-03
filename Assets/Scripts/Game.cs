@@ -8,7 +8,9 @@
     using UnityEditor;
 
     using UnityEngine;
-    
+
+    using Random = UnityEngine.Random;
+
     public class Game : MonoBehaviour
     {
         #region member vars
@@ -20,6 +22,7 @@
         public Orientation SplitScreen = Orientation.Horizontal;
 
         public Vector3[] StartPositions = { new Vector3(-60, 10, -60), new Vector3(60, 10, 60), new Vector3(60, 10, -60), new Vector3(-60, 10, 60) };
+        public Vector3[] ItemPositions = { new Vector3(-60, 0, 0), new Vector3(0, 0, -60), new Vector3(60, 0, 0), new Vector3(0, 0, 60) };
         
         public float StartTime;
 
@@ -34,6 +37,16 @@
         public void AddMessage(string message)
         {
             AddMessage(message, PlayerId.None);
+        }
+
+        public Vector3 GetRandomItemPosition()
+        {
+            return ItemPositions[Random.Range(0, ItemPositions.Length)];
+        }
+
+        public Vector3 GetRandomStartPosition()
+        {
+            return StartPositions[Random.Range(0, StartPositions.Length)];
         }
 
         public void AddMessage(string message, PlayerId id)
