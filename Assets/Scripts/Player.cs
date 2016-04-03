@@ -32,7 +32,7 @@
         public Camera Camera;
         public float CameraDistance = 10;
         public float CameraDistanceSpeed = 1f;
-        public float CameraRotation = 45;
+        public float CameraRotation = 20;
         public float CameraSpeed = 1f;
         public float DropSpeed = 2.0f;
         public float GrabLock = 2.0f;
@@ -45,7 +45,7 @@
         public int MaxBullets = 10;
         public float MaxCameraDistance = 35;
         public float MinCameraDistance = 4;
-        public float MinCameraRotation = 1.0f;
+        public float MinCameraRotation = 15.0f;
         public float MaxCameraRotation = 80.0f;
         public int Points;
         public float PushDistance = 2.0f;

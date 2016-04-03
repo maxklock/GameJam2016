@@ -92,9 +92,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LifeTime: 30
-  MaxDepth: -22
   MinAlpha: 0.25
-  Points: 1
+  Points: 10
   SpawnRate: 1
   NotifyPlayer: 1
   NotifyMessage: Green Pearl spawned!
