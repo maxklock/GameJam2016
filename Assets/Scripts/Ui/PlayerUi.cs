@@ -14,7 +14,7 @@
         public Text TbxTime;
         public Text TbxMessage;
 
-        const float DefaultMessageTime = 5.0f;
+        const float DefaultMessageTime = 2.0f;
 
         public Canvas Root;
 

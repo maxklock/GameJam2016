@@ -19,12 +19,19 @@
 
         private const int MaxPlayers = 4;
 
+        private SerializedProperty _propertyItemPositions = null;
+
         #endregion
 
         #region methods
 
         public override void OnInspectorGUI()
         {
+            if (_propertyItemPositions == null)
+            {
+                _propertyItemPositions = serializedObject.FindProperty("ItemPositions");
+            }
+
             var hasChanged = false;
             var game = (Game)target;
             serializedObject.Update();
@@ -53,6 +60,12 @@
                 game.AllowEmptyViewPort = tmpAllow;
                 hasChanged = true;
             }
+
+            EditorGUILayout.Space();
+
+            game.Item = (SpeedBooster)EditorGUILayout.ObjectField(new GUIContent("Item"), game.Item, typeof(SpeedBooster), false);
+            game.ItemSpawnTime = EditorGUILayout.FloatField(new GUIContent("Item Spawn Time"), game.ItemSpawnTime);
+            EditorGUILayout.PropertyField(_propertyItemPositions, new GUIContent("Item Positions"), true);
 
             EditorGUILayout.Space();
 

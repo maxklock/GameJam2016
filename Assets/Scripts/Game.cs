@@ -1,6 +1,7 @@
 ﻿namespace Assets.Scripts
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using Assets.Scripts.Ui;
@@ -27,8 +28,12 @@
         public float StartTime;
 
         public PlayerUi PlayerUi;
+        public SpeedBooster Item;
 
-        private Player[] _players;
+        private List<Player> _players = new List<Player>();
+
+        private float _itemSpawn;
+        public float ItemSpawnTime = 20.0f;
 
         #endregion
 
@@ -65,6 +70,7 @@
 
         public void InitPlayers()
         {
+            _players = new List<Player>();
             var players = GetComponentsInChildren<Player>();
             foreach (var player in players)
             {
@@ -122,6 +128,8 @@
                 player.InitPlayer();
                 player.SetPoints(0);
                 player.UpdateTime();
+
+                _players.Add(player);
             }
 
             Start();
@@ -131,13 +139,27 @@
         private void Start()
         {
             StartTime = Time.time;
-            _players = FindObjectsOfType<Player>();
             AddMessage("Start");
+
+            _itemSpawn = ItemSpawnTime;
         }
 
         // Update is called once per frame
         private void Update()
         {
+            _itemSpawn -= Time.deltaTime;
+
+            if (_itemSpawn <= 0)
+            {
+                _itemSpawn = ItemSpawnTime;
+                AddMessage("New Item");
+
+                for (var i = 0; i < ItemPositions.Length; i++)
+                {
+                    Instantiate(Item, ItemPositions[i], Quaternion.Euler(Vector3.zero));
+                }
+                // Instantiate(Item, GetRandomItemPosition(), Quaternion.Euler(Vector3.zero));
+            }
         }
 
         #endregion

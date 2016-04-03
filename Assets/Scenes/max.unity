@@ -2807,6 +2807,8 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 60}
   StartTime: 0
   PlayerUi: {fileID: 11412292, guid: 794a5c3e0ed0ced4994b417c45a4f100, type: 2}
+  Item: {fileID: 11467616, guid: 5c7f0eab509f1624085dab8df944b51c, type: 2}
+  ItemSpawnTime: 20
 --- !u!4 &983423665
 Transform:
   m_ObjectHideFlags: 0
@@ -3763,7 +3765,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1241666550
 Transform:
   m_ObjectHideFlags: 0
