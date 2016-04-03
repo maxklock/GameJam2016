@@ -1,5 +1,7 @@
 ﻿namespace Assets.Scripts.Editor
 {
+    using Assets.Scripts.Ui;
+
     using UnityEditor;
 
     using UnityEngine;
@@ -28,11 +30,17 @@
             serializedObject.Update();
 
             var tmpPlayer = (Player)EditorGUILayout.ObjectField(new GUIContent("Player"), game.Player, typeof(Player), false);
+            var tmpPlayerUi = (PlayerUi)EditorGUILayout.ObjectField(new GUIContent("Player UI"), game.PlayerUi, typeof(PlayerUi), false);
             var tmpSplit = (Orientation)EditorGUILayout.EnumPopup(new GUIContent("Split Screen"), game.SplitScreen);
             var tmpAllow = EditorGUILayout.Toggle(new GUIContent("Allow Empty ViewPort"), game.AllowEmptyViewPort);
             if (game.Player != tmpPlayer)
             {
                 game.Player = tmpPlayer;
+                hasChanged = true;
+            }
+            if (game.PlayerUi != tmpPlayerUi)
+            {
+                game.PlayerUi = tmpPlayerUi;
                 hasChanged = true;
             }
             if (game.SplitScreen != tmpSplit)

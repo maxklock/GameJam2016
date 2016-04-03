@@ -94,6 +94,10 @@ MonoBehaviour:
   LifeTime: 30
   MaxDepth: -22
   MinAlpha: 0.25
+  Points: 1
+  SpawnRate: 1
+  NotifyPlayer: 1
+  NotifyMessage: Green Pearl spawned!
   LastPlayer: 0
 --- !u!135 &13564960
 SphereCollider:

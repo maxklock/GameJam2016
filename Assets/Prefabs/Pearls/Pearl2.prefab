@@ -94,6 +94,10 @@ MonoBehaviour:
   LifeTime: 30
   MaxDepth: -22
   MinAlpha: 0.25
+  Points: 1
+  SpawnRate: 100
+  NotifyPlayer: 0
+  NotifyMessage: 
   LastPlayer: 0
 --- !u!135 &13573724
 SphereCollider:

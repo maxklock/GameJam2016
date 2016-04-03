@@ -51,6 +51,7 @@
         public Rect ViewPort = new Rect(0, 0, 0.5f, 0.5f);
 
         public PlayerUi PlayerUi;
+        public Game Game;
 
         #endregion
 
@@ -77,11 +78,12 @@
         public void AddPoints(int value)
         {
             SetPoints(Points + value);
+            AddMessage("New Points (" + value + ")");
         }
         public void SetPoints(int value)
         {
             Points = value;
-            PlayerUi.Points.text = Points.ToString("00");
+            PlayerUi.TbxPoints.text = Points.ToString("0");
         }
 
         public void GrapPearl(Pearl pearl)
@@ -227,9 +229,24 @@
             _grabTimer = -1;
         }
 
+        public void UpdateTime()
+        {
+            var diff = Time.time - Game.StartTime;
+            var minutes = (int)(diff / 60);
+            var seconds = ((int)diff) % 60;
+
+            PlayerUi.TbxTime.text = minutes.ToString("0") + ":" + seconds.ToString("00");
+        }
+
+        public void AddMessage(string message)
+        {
+            PlayerUi.AddMessage(message);
+        }
+
         // Update is called once per frame
         private void Update()
         {
+            UpdateTime();
 
             _grabTimer -= Time.deltaTime;
             if (_grabTimer < -1)

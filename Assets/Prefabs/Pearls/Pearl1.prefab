@@ -95,7 +95,9 @@ MonoBehaviour:
   MaxDepth: -22
   MinAlpha: 0.25
   Points: 1
-  SpawnRate: 1
+  SpawnRate: 100
+  NotifyPlayer: 0
+  NotifyMessage: 
   LastPlayer: 0
 --- !u!135 &13566702
 SphereCollider:
