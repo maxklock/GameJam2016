@@ -23,9 +23,11 @@
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.GetComponent<Player>() != null && (int)collision.gameObject.GetComponent<Player>().Id != _id)
+            Player player = collision.gameObject.GetComponent<Player>();
+
+            if (player != null && (int)player.Id != _id)
             {
-                collision.gameObject.GetComponent<Player>().ResetPosition();
+                player.ResetPosition();
             }
         }
 
