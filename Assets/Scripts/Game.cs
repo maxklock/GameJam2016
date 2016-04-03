@@ -19,7 +19,7 @@
         public int PlayerCount = 2;
         public Orientation SplitScreen = Orientation.Horizontal;
 
-        public Vector3[] StartPositions = { new Vector3(-60, 0, -60), new Vector3(60, 0, 60), new Vector3(60, 0, -60), new Vector3(-60, 0, 60) };
+        public Vector3[] StartPositions = { new Vector3(-60, 10, -60), new Vector3(60, 10, 60), new Vector3(60, 10, -60), new Vector3(-60, 10, 60) };
         
         public float StartTime;
 

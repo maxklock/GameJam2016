@@ -30,9 +30,9 @@
 
         public BulletsProps BulletsFab;
         public Camera Camera;
-        public float CameraDistance = 10;
+        public float CameraDistance = 15;
         public float CameraDistanceSpeed = 1f;
-        public float CameraRotation = 20;
+        public float CameraRotation = 35;
         public float CameraSpeed = 1f;
         public float DropSpeed = 2.0f;
         public float GrabLock = 2.0f;
@@ -44,7 +44,7 @@
 
         public int MaxBullets = 10;
         public float MaxCameraDistance = 35;
-        public float MinCameraDistance = 4;
+        public float MinCameraDistance = 5;
         public float MinCameraRotation = 15.0f;
         public float MaxCameraRotation = 80.0f;
         public int Points;
@@ -147,7 +147,7 @@
             animator.SetBool("respawn", true);
             isRespawning = true;
             AddPoints(-1 , "You died! (-1 Point)");
-            transform.position = _startPosition;
+            transform.position = Game.StartPositions[Random.Range(0, Game.StartPositions.Length)];
 
 
         }
