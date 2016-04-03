@@ -1,5 +1,8 @@
 ﻿namespace Assets.Scripts
 {
+    using System;
+    using System.Linq;
+
     using UnityEngine;
 
     public class Dugong : MonoBehaviour
@@ -25,12 +28,24 @@
 
                 pearl = player.GrappedPearl;
                 player.DropPearl();
-                player.Points++;
+                player.GivePoints(pearl.Points);
                 Destroy(pearl.gameObject);
 
                 return;
             }
 
+            if (pearl.LastPlayer != PlayerId.None)
+            {
+                var players = FindObjectsOfType<Player>().Where(p => p.Id == pearl.LastPlayer).ToList();
+
+                if (players.Count > 1)
+                {
+                    // ReSharper disable once NotResolvedInText
+                    throw new ArgumentOutOfRangeException("Player.Id", "There is more than one Player with Id " + pearl.LastPlayer);
+                }
+
+                players.First().GivePoints(pearl.Points);
+            }
             Destroy(pearl.gameObject);
         }
 

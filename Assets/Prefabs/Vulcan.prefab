@@ -1704,7 +1704,7 @@ MonoBehaviour:
   - {fileID: 11463494, guid: 5a37d98ad4fcdd84896a3d8b201a4298, type: 2}
   SpawnOffset: {x: 0, y: 0, z: 0}
   SpawnRange: 2
-  SpawnRate: 10
+  SpawnRate: 2
 --- !u!114 &11417528
 MonoBehaviour:
   m_ObjectHideFlags: 1

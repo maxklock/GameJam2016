@@ -91,9 +91,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181e003e18c107d43acb455ce206a8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxDepth: -20
   LifeTime: 30
+  MaxDepth: -22
   MinAlpha: 0.25
+  LastPlayer: 0
 --- !u!135 &13573724
 SphereCollider:
   m_ObjectHideFlags: 1

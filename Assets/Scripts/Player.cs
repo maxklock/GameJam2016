@@ -71,6 +71,12 @@
             GrappedPearl = null;
         }
 
+        public void GivePoints(int count)
+        {
+            // TODO UI Update
+            Points++;
+        }
+
         public void GrapPearl(Pearl pearl)
         {
             if (_grabTimer > 0)
@@ -79,7 +85,7 @@
             }
             GrappedPearl = pearl;
             _pearlParent = GrappedPearl.transform.parent;
-            GrappedPearl.Grab();
+            GrappedPearl.Grab(Id);
             GrappedPearl.transform.parent = transform;
             GrappedPearl.transform.localPosition = GrabOffset;
             GrappedPearl.Rigidbody.isKinematic = true;
@@ -176,7 +182,7 @@
             CameraDistance += distance * CameraDistanceSpeed;
             CameraDistance = Mathf.Clamp(CameraDistance, MinCameraDistance, MaxCameraDistance);
 
-            CameraRotation += vertical * CameraSpeed;
+            CameraRotation -= vertical * CameraSpeed;
             CameraRotation = Mathf.Clamp(CameraRotation, MinCameraRotation, MaxCameraRotation);
 
             Camera.transform.Rotate(Vector3.left, -CameraRotation, Space.Self);

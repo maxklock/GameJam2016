@@ -18,6 +18,12 @@
         [Range(0.0f, 1.0f)]
         public float MinAlpha = 0.25f;
 
+        public int Points = 1;
+
+        public float SpawnRate = 1.0f;
+
+        public PlayerId LastPlayer = PlayerId.None;
+
         #endregion
 
         #region methods
@@ -27,9 +33,10 @@
             IsGrabbed = false;
         }
 
-        public void Grab()
+        public void Grab(PlayerId player)
         {
             IsGrabbed = true;
+            LastPlayer = player;
         }
 
         // Use this for initialization

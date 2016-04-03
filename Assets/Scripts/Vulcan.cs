@@ -27,8 +27,24 @@
 
         private void SpawnPearl()
         {
-            var rnd = Random.Range(0, PearlTypes.Length);
-            var pearl = Instantiate(PearlTypes[rnd]);
+            var sum = PearlTypes.Sum(p => p.SpawnRate);
+            var rnd = Random.Range(0, sum);
+            var pearl = PearlTypes.Last();
+
+            var tmpSum = 0.0f;
+            foreach (var p in PearlTypes)
+            {
+                tmpSum += p.SpawnRate;
+
+                if (tmpSum <= rnd)
+                {
+                    continue;
+                }
+                pearl = Instantiate(p);
+                break;
+            }
+
+            Debug.Log(pearl.name);
 
             var spawnpos = Random.onUnitSphere * SpawnRange * MaxSpawnSpeed;
             spawnpos.y = 0;
