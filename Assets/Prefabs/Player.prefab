@@ -1313,7 +1313,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 150922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -45.204636, y: 0.6135483, z: -59.927536}
+  m_LocalPosition: {x: -52.711876, y: 0.9736786, z: -54.883713}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 459160}
@@ -1571,11 +1571,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletCoolTime: 0.6
-  BulletsFab: {fileID: 121496, guid: e2882276193526643a0b47e85bcce884, type: 2}
+  BulletsFab: {fileID: 11437230, guid: e2882276193526643a0b47e85bcce884, type: 2}
   Camera: {fileID: 0}
   CameraDistance: 10
   CameraDistanceSpeed: 1
-  CameraRotation: -30
+  CameraRotation: 1
   CameraSpeed: 1
   DropSpeed: 2
   GrabLock: 2
@@ -1587,6 +1587,8 @@ MonoBehaviour:
   MaxBullets: 10
   MaxCameraDistance: 35
   MinCameraDistance: 5
+  MinCameraRotation: 1
+  MaxCameraRotation: 80
   Points: 0
   PushDistance: 2
   RotationSpeed: 5

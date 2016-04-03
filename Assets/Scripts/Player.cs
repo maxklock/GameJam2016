@@ -128,6 +128,7 @@
         public void ResetPosition()
         {
             transform.position = _startPosition;
+
         }
 
         private void OnCollisionEnter(Collision col)
