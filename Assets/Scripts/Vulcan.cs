@@ -21,6 +21,8 @@
 
         public float SpawnRate = 2;
 
+        private Game _game;
+
         #endregion
 
         #region methods
@@ -44,13 +46,16 @@
                 break;
             }
 
-            Debug.Log(pearl.name);
-
             var spawnpos = Random.onUnitSphere * SpawnRange * MaxSpawnSpeed;
             spawnpos.y = 0;
 
             pearl.transform.position = transform.position + SpawnOffset + spawnpos;
             pearl.transform.parent = _pearlsObject.transform;
+
+            if (pearl.NotifyPlayer)
+            {
+                _game.AddMessage(pearl.NotifyMessage);
+            }
 
             Pearls.Add(pearl);
 
@@ -65,6 +70,7 @@
             _timer = 0;
             Pearls = new List<Pearl>();
             _pearlsObject = new GameObject("Pearls");
+            _game = FindObjectOfType<Game>();
         }
 
         // Update is called once per frame

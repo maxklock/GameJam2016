@@ -13,14 +13,15 @@
         private float _startLifeTime;
         public float LifeTime = 30.0f;
 
-        public float MaxDepth = -10;
-
         [Range(0.0f, 1.0f)]
         public float MinAlpha = 0.25f;
 
         public int Points = 1;
 
         public float SpawnRate = 1.0f;
+
+        public bool NotifyPlayer = false;
+        public string NotifyMessage = string.Empty;
 
         public PlayerId LastPlayer = PlayerId.None;
 
@@ -50,11 +51,6 @@
         // Update is called once per frame
         private void Update()
         {
-            if (transform.position.y < MaxDepth)
-            {
-                Destroy(gameObject);
-            }
-
             if (!IsGrabbed)
             {
                 LifeTime -= Time.deltaTime;

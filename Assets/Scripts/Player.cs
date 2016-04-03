@@ -3,6 +3,7 @@
     using System.Linq;
 
     using Assets.Scripts.Bullets;
+    using Assets.Scripts.Ui;
 
     using UnityEngine;
 
@@ -49,6 +50,9 @@
         public float Speed = 5.0f;
         public Rect ViewPort = new Rect(0, 0, 0.5f, 0.5f);
 
+        public PlayerUi PlayerUi;
+        public Game Game;
+
         #endregion
 
         #region constants
@@ -71,10 +75,15 @@
             GrappedPearl = null;
         }
 
-        public void GivePoints(int count)
+        public void AddPoints(int value)
         {
-            // TODO UI Update
-            Points++;
+            SetPoints(Points + value);
+            AddMessage("New Points (" + value + ")");
+        }
+        public void SetPoints(int value)
+        {
+            Points = value;
+            PlayerUi.TbxPoints.text = Points.ToString("0");
         }
 
         public void GrapPearl(Pearl pearl)
@@ -107,6 +116,10 @@
             Camera = obj.GetComponent<Camera>();
             Camera.rect = ViewPort;
             Camera.transform.parent = transform;
+
+            PlayerUi.transform.parent = transform;
+            PlayerUi.Root.worldCamera = Camera;
+            PlayerUi.Root.planeDistance = 1;
 
             RotateCamera(0, 0);
         }
@@ -217,9 +230,24 @@
             _grabTimer = -1;
         }
 
+        public void UpdateTime()
+        {
+            var diff = Time.time - Game.StartTime;
+            var minutes = (int)(diff / 60);
+            var seconds = ((int)diff) % 60;
+
+            PlayerUi.TbxTime.text = minutes.ToString("0") + ":" + seconds.ToString("00");
+        }
+
+        public void AddMessage(string message)
+        {
+            PlayerUi.AddMessage(message);
+        }
+
         // Update is called once per frame
         private void Update()
         {
+            UpdateTime();
 
             _grabTimer -= Time.deltaTime;
             if (_grabTimer < -1)

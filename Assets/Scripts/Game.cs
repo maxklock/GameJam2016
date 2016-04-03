@@ -3,8 +3,12 @@
     using System;
     using System.Linq;
 
-    using UnityEngine;
+    using Assets.Scripts.Ui;
 
+    using UnityEditor;
+
+    using UnityEngine;
+    
     public class Game : MonoBehaviour
     {
         #region member vars
@@ -16,10 +20,35 @@
         public Orientation SplitScreen = Orientation.Horizontal;
 
         public Vector3[] StartPositions = { new Vector3(-60, 0, -60), new Vector3(60, 0, 60), new Vector3(60, 0, -60), new Vector3(-60, 0, 60) };
+        
+        public float StartTime;
+
+        public PlayerUi PlayerUi;
+
+        private Player[] _players;
 
         #endregion
 
         #region methods
+
+        public void AddMessage(string message)
+        {
+            AddMessage(message, PlayerId.None);
+        }
+
+        public void AddMessage(string message, PlayerId id)
+        {
+            if (id != PlayerId.None)
+            {
+                _players.Single(p => p.Id == id).AddMessage(message);
+                return;
+            }
+
+            foreach (var player in _players)
+            {
+                player.AddMessage(message);
+            }
+        }
 
         public void InitPlayers()
         {
@@ -36,7 +65,8 @@
                 player.transform.parent = transform;
                 player.Id = (PlayerId)(i + 1);
                 player.InputType = InputTypes[i];
-                player.Points = 0;
+                player.PlayerUi = Instantiate(PlayerUi);
+                player.Game = this;
 
                 switch (PlayerCount)
                 {
@@ -77,12 +107,18 @@
                 }
 
                 player.InitPlayer();
+                player.SetPoints(0);
+                player.UpdateTime();
+                player.AddMessage("");
             }
         }
 
         // Use this for initialization
         private void Start()
         {
+            StartTime = Time.time;
+            _players = FindObjectsOfType<Player>();
+            AddMessage("Start");
         }
 
         // Update is called once per frame
