@@ -22,7 +22,8 @@
     public enum GameState
     {
         PlayerSelection = 0,
-        InGame = 1
+        InGame = 1,
+        GameOver = 2
     }
 
     public enum Orientation
