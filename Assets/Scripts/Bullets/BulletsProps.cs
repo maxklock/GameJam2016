@@ -27,7 +27,7 @@
 
             if (player != null && (int)player.Id != _id)
             {
-                player.ResetPosition();
+                player.Respawn();
             }
         }
 
